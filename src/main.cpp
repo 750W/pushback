@@ -1,12 +1,13 @@
 #include "main.h"
 
 pros::Controller master(pros::E_CONTROLLER_MASTER);
-pros::MotorGroup left_motors({18, -19, 20});    // Creates a motor group with forwards ports 1 & 3 and reversed port 2
-pros::MotorGroup right_motors({-11, 12, -13});  // Creates a motor group with forwards port 5 and reversed ports 4 & 6
+pros::MotorGroup left_motors({18,19, 20});    // Creates a motor group with forwards ports 1 & 3 and reversed port 2
+pros::MotorGroup right_motors({-11, -12, -13});  // Creates a motor group with forwards port 5 and reversed ports 4 & 6
 
 pros::MotorGroup intake_motors({9,10});
 pros::Motor outtake_motors(1);
 
+pros::adi::DigitalOut wingPiston('A');
 /**
  * A callback function for LLEMU's center button.
  *
@@ -83,7 +84,7 @@ void autonomous() {}
 void opcontrol() {
 	
 
-
+	bool wingToggled = false;
 	while (true) {
 		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
 		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
@@ -99,8 +100,12 @@ void opcontrol() {
 
 		if(master.get_digital(DIGITAL_R1)) {
 			intake_motors.move(127);
+			if(!master.get_digital(DIGITAL_L1) && !master.get_digital(DIGITAL_L2))
+			outtake_motors.move(64);
 		} else if(master.get_digital(DIGITAL_R2)) {
 			intake_motors.move(-127);
+			if(!master.get_digital(DIGITAL_L1) && !master.get_digital(DIGITAL_L2))
+			outtake_motors.move(-64);
 		} else {
 			intake_motors.move(0);
 		}
@@ -110,9 +115,17 @@ void opcontrol() {
 		} else if(master.get_digital(DIGITAL_L2)) {
 			outtake_motors.move(-127);
 		} else {
+			if(!master.get_digital(DIGITAL_R1) && !master.get_digital(DIGITAL_R2))
 			outtake_motors.move(0);
 		}
 
+		if(master.get_digital_new_press(DIGITAL_B))
+		{
+			wingToggled = !wingToggled;
+			wingPiston.set_value(wingToggled);
+		}
+		
+		
 		
 	}
 }
