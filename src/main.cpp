@@ -42,7 +42,7 @@ void opcontrol() {
 
 		// Arcade control scheme
 		int dir = master.get_analog(ANALOG_LEFT_Y);    
-		int turn = master.get_analog(ANALOG_RIGHT_X);  
+		int turn = master.get_analog(ANALOG_RIGHT_X) * -1;  
 		chassis.arcade(dir, turn);
 		pros::delay(20);                              
 
@@ -50,11 +50,11 @@ void opcontrol() {
 		if(master.get_digital(DIGITAL_R1)) {
 			intake_motors.move(127);
 			if(!master.get_digital(DIGITAL_L1) && !master.get_digital(DIGITAL_L2))
-			outtake_motors.move(64);
+			outtake_motors.move(40);
 		} else if(master.get_digital(DIGITAL_R2)) {
 			intake_motors.move(-127);
 			if(!master.get_digital(DIGITAL_L1) && !master.get_digital(DIGITAL_L2))
-			outtake_motors.move(-64);
+			outtake_motors.move(-40);
 		} else {
 			intake_motors.move(0);
 		}
