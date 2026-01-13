@@ -1,6 +1,7 @@
 #include "main.h"
 #include "lemlib/api.hpp"
 #include "headers/robot_config.hpp"
+#include "headers/autons.hpp"
 
 
 void on_center_button() {
@@ -13,11 +14,23 @@ void on_center_button() {
 	}
 }
 
+// initialize function. Runs on program startup
 void initialize() {
-	pros::lcd::initialize();
-	pros::lcd::set_text(1, "Hello AJAY!");
-
-	pros::lcd::register_btn1_cb(on_center_button);
+    pros::lcd::initialize(); // initialize brain screen
+	
+    chassis.calibrate(); // calibrate sensors
+    // print position to brain screen
+    pros::Task screen_task([&]() {
+        while (true) {
+            // print robot location to the brain screen
+            
+            pros::lcd::print(1, "Y: %f", chassis.getPose().y); // y
+            pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
+			pros::lcd::print(3, "X: %f", chassis.getPose().x); // x
+            // delay to save resources
+            pros::delay(200);
+        }
+    });
 }
 
 
@@ -27,11 +40,35 @@ void disabled() {}
 void competition_initialize() {}
 
 
-void autonomous() {}
+void autonomous() {
+
+	wingPiston.set_value(true); // close wings
+    chassis.setPose(0, 0, 0);
+    chassis.moveToPoint(0, 24.9, 1000);
+	pros::delay(100);
+	chassis.turnToHeading(-90, 1000);
+	pros::delay(100);
+	loaderPiston.set_value(true); // open loader
+	intake_motors.move(127);
+	pros::delay(200);
+	chassis.moveToPoint(-29.9, 36.5, 2000, {.maxSpeed = 40});
+	pros::delay(2000);
+	//chassis.moveToPoint(-29.9, 34.28, 1000, {40, false});
+	//pros::delay(200);
+	//chassis.moveToPoint(-29.9, 36.28, 1000, {.maxSpeed = 40});
+	pros::delay(200);
+	chassis.moveToPoint(0, 36.5, 1000, {.forwards = false});
+	loaderPiston.set_value(false); // close loader
+	pros::delay(200);
+	chassis.swingToPoint(4, 28.6, lemlib::DriveSide::LEFT, 1000, {.forwards = false});
+
+
+
+
+}
 
 
 void opcontrol() {
-	
 
 	bool wingToggled = false;
 	bool loaderToggled = false;
@@ -51,6 +88,8 @@ void opcontrol() {
 			intake_motors.move(127);
 			if(!master.get_digital(DIGITAL_L1) && !master.get_digital(DIGITAL_L2))
 			outtake_motors.move(40);
+			//if(master.get_digital(DIGITAL_L1)) // changed 01/12/26 -> if both outtake motors are triggered, hood will automatically open
+			//wingPiston.set_value(!wingToggled); 		// *if you dont like this, make it hold instead of toggle*
 		} else if(master.get_digital(DIGITAL_R2)) {
 			intake_motors.move(-127);
 			if(!master.get_digital(DIGITAL_L1) && !master.get_digital(DIGITAL_L2))
@@ -79,5 +118,6 @@ void opcontrol() {
 			loaderToggled = !loaderToggled;
 			loaderPiston.set_value(loaderToggled);
 		}
+		pros::delay(20);                              
 	}
 }

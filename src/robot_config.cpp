@@ -16,7 +16,7 @@ pros::adi::DigitalOut wingPiston('A');
 pros::adi::DigitalOut loaderPiston('B'); //change later
 
 // Sensors (change port!)
-pros::Imu imu(7);
+pros::Imu imu(2);
 
 // ---- LemLib setup (YOU will fill in correct values) ----
 // These are placeholders to show structure.
@@ -33,7 +33,20 @@ lemlib::Drivetrain drivetrain(
 
 lemlib::OdomSensors sensors(nullptr, nullptr, nullptr, nullptr, &imu);
 
-lemlib::ControllerSettings linearController(10, 0, 0, 3, 1, 100, 3, 500, 20);
-lemlib::ControllerSettings angularController(4, 0, 0, 3, 1, 100, 3, 500, 20);
+lemlib::ControllerSettings linearController(11, -0.000000001, 30, 0, 0, 0, 0, 0, 0);
+
+
+
+
+lemlib::ControllerSettings angularController(-0.722, // proportional gain (kP)
+                                              0, // integral gain (kI)
+                                              2, // derivative gain (kD)
+                                              0, // anti windup
+                                              0, // small error range, in inches
+                                              0, // small error range timeout, in milliseconds
+                                              0, // large error range, in inches
+                                              0, // large error range timeout, in milliseconds
+                                              0 // maximum acceleration (slew)
+);
 
 lemlib::Chassis chassis(drivetrain, linearController, angularController, sensors);
