@@ -40,7 +40,7 @@ lemlib::ControllerSettings linearController(11, -0.000000001, 30, 0, 0, 0, 0, 0,
 
 lemlib::ControllerSettings angularController(-0.722, // proportional gain (kP)
                                               0, // integral gain (kI)
-                                              2, // derivative gain (kD)
+                                              2.3, // derivative gain (kD)
                                               0, // anti windup
                                               0, // small error range, in inches
                                               0, // small error range timeout, in milliseconds

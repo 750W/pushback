@@ -42,25 +42,39 @@ void competition_initialize() {}
 
 void autonomous() {
 
+	/*
+	//loader #1
 	wingPiston.set_value(true); // close wings
     chassis.setPose(0, 0, 0);
-    chassis.moveToPoint(0, 24.9, 1000);
+    chassis.moveToPoint(0, 25.1, 1000); 
 	pros::delay(100);
-	chassis.turnToHeading(-90, 1000);
+	chassis.turnToHeading(-90, 1000); //turn towards first loader
 	pros::delay(100);
 	loaderPiston.set_value(true); // open loader
 	intake_motors.move(127);
 	pros::delay(200);
-	chassis.moveToPoint(-29.9, 36.5, 2000, {.maxSpeed = 40});
+	chassis.moveToPoint(-27.9, 36.5, 2000, {.maxSpeed = 40}); //move towards loader
 	pros::delay(2000);
-	//chassis.moveToPoint(-29.9, 34.28, 1000, {40, false});
-	//pros::delay(200);
-	//chassis.moveToPoint(-29.9, 36.28, 1000, {.maxSpeed = 40});
+	chassis.moveToPoint(-17.9, 36.5, 1000, {.forwards = false});
 	pros::delay(200);
-	chassis.moveToPoint(0, 36.5, 1000, {.forwards = false});
+	chassis.moveToPoint(-29.9, 36.5, 1000, {.maxSpeed = 40}); //back up a bit
+	pros::delay(800);
+	chassis.moveToPoint(-5, 36.5, 1000, {.forwards = false});
 	loaderPiston.set_value(false); // close loader
 	pros::delay(200);
-	chassis.swingToPoint(4, 28.6, lemlib::DriveSide::LEFT, 1000, {.forwards = false});
+
+
+	//chassis.swingToPoint(5, 27, lemlib::DriveSide::LEFT, 1000);
+	chassis.swingToHeading(-270, lemlib::DriveSide::LEFT, 1000);
+	pros::delay(200);
+	//chassis.moveToPoint(4, -60, 1000);
+	*/
+
+	chassis.setPose(0, 0, 0);
+    // turn to face heading 90 with a very long timeout
+    chassis.turnToHeading(90, 100000);
+
+
 
 
 
