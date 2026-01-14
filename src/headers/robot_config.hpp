@@ -22,3 +22,8 @@ extern pros::Imu imu;
 
 // LemLib chassis
 extern lemlib::Chassis chassis;
+
+// PID Controllers
+extern lemlib::ControllerSettings angularController;
+extern lemlib::ControllerSettings linearController;
+extern lemlib::ControllerSettings swingController;

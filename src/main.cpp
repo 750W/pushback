@@ -39,6 +39,42 @@ void disabled() {}
 
 void competition_initialize() {}
 
+void swing_turn(float heading, lemlib::DriveSide side, float timeout) 
+{
+	float last_error = 0;
+	float total_error = 0;
+	float dt = 20;
+	float error_threshold = 1.0;
+	float start_time = pros::millis();
+	while((pros::millis() - start_time) < timeout) {
+		float error = heading - chassis.getPose().theta;
+
+        while (error > 180) error -= 360;
+        while (error < -180) error += 360;
+        
+        if(std::abs(error) < error_threshold) break;
+        
+		total_error += error * (dt / 1000.0);
+		float P = swingController.kP * error;
+		float I = swingController.kI * total_error;
+		float D = swingController.kD * (error - last_error) / (dt / 1000.0);
+		float output = P + I + D;
+		output = std::clamp(output, -127.0f, 127.0f);
+		if(side == lemlib::DriveSide::LEFT) {
+			left_motors.move(output);
+			right_motors.move(0);
+		} else {
+			left_motors.move(0);
+			right_motors.move(output);
+		}
+		
+		last_error = error;
+		pros::delay(dt);
+	}
+	left_motors.move(0);
+    right_motors.move(0);
+}
+
 
 void autonomous() {
 
@@ -101,7 +137,6 @@ void autonomous() {
 	
 
 
-	
 
 
 	/*
