@@ -11,6 +11,8 @@ pros::MotorGroup right_motors({-11, -12, -13});
 pros::MotorGroup intake_motors({9,10});
 pros::Motor outtake_motors(1);
 
+pros::MotorGroup highScoring_motors({9,10,1});
+
 //Pneumatics
 pros::adi::DigitalOut wingPiston('A');
 pros::adi::DigitalOut loaderPiston('B'); //change later
@@ -38,9 +40,9 @@ lemlib::ControllerSettings linearController(11, -0.000000001, 30, 0, 0, 0, 0, 0,
 
 
 
-lemlib::ControllerSettings angularController(-0.722, // proportional gain (kP)
+lemlib::ControllerSettings angularController(-0.84, // proportional gain (kP)
                                               0, // integral gain (kI)
-                                              2.3, // derivative gain (kD)
+                                              -0.01, // derivative gain (kD)
                                               0, // anti windup
                                               0, // small error range, in inches
                                               0, // small error range timeout, in milliseconds

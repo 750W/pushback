@@ -12,6 +12,7 @@ extern pros::MotorGroup right_motors;
 
 extern pros::MotorGroup intake_motors;
 extern pros::Motor outtake_motors;
+extern pros::MotorGroup highScoring_motors;
 
 extern pros::adi::DigitalOut wingPiston;
 extern pros::adi::DigitalOut loaderPiston;
