@@ -39,8 +39,10 @@ void disabled() {}
 
 void competition_initialize() {}
 
-void swing_turn(float heading, lemlib::DriveSide side, float timeout) 
+void swing_turn(float heading, lemlib::DriveSide side, float timeout, bool clockwise = false) 
 {
+	left_motors.brake();
+	right_motors.brake();
 	float last_error = 0;
 	float total_error = 0;
 	float dt = 20;
@@ -52,6 +54,10 @@ void swing_turn(float heading, lemlib::DriveSide side, float timeout)
         while (error > 180) error -= 360;
         while (error < -180) error += 360;
         
+        if (clockwise && error < 0) error += 360;
+		
+        if (!clockwise && error > 0) error -= 360;
+        
         if(std::abs(error) < error_threshold) break;
         
 		total_error += error * (dt / 1000.0);
@@ -61,13 +67,13 @@ void swing_turn(float heading, lemlib::DriveSide side, float timeout)
 		float output = P + I + D;
 		output = std::clamp(output, -127.0f, 127.0f);
 		if(side == lemlib::DriveSide::LEFT) {
-			left_motors.move(output);
+			left_motors.move(-output);
 			right_motors.move(0);
 		} else {
 			left_motors.move(0);
 			right_motors.move(output);
 		}
-		
+
 		last_error = error;
 		pros::delay(dt);
 	}
@@ -80,23 +86,242 @@ void autonomous() {
 
 	
 	//loader #1
+	
 	wingPiston.set_value(true); // close wings
     chassis.setPose(0, 0, 0);
-    chassis.moveToPoint(0, 24.9, 1000); 
+    chassis.moveToPoint(0, 25.9, 1000); 
 	pros::delay(100);
 	chassis.turnToHeading(-90, 1000); //turn towards first loader
 	pros::delay(100);
 	loaderPiston.set_value(true); // open loader
 	intake_motors.move(127);
+	outtake_motors.move(40);
 	pros::delay(200);
-	chassis.moveToPoint(-29.9, 36.5, 2400, {.maxSpeed = 50}); //move towards loader
+	chassis.moveToPoint(-29, 36.5, 2400, {.maxSpeed = 45}); //move towards loader
 	pros::delay(2700);
+	chassis.moveToPoint(-5, 36.5, 1000, {.forwards = false});
+	loaderPiston.set_value(false); // close loader wings
+	pros::delay(200);
+
+	chassis.turnToHeading(-130, 1000);
+	pros::delay(200);
+
+	chassis.moveToPoint(6.5, 46, 1000, {.forwards = false});
+	pros::delay(500);
+
+	intake_motors.move(0);
+	outtake_motors.move(0);
+
+	chassis.turnToHeading(-78.5, 1000);
+	pros::delay(200);
+
+
+
+	chassis.moveToPoint(66, 45,  2000, {.forwards = false});
+	pros::delay(2000);
+
+	chassis.turnToHeading(0, 1000);
+	pros::delay(500);
+
+	
+
+	chassis.moveToPoint(73, 24.95, 1500, {.forwards = false, .maxSpeed = 70});
+	pros::delay(500);
+
+	chassis.turnToHeading(90, 1000); // face goal
+	pros::delay(500);
+
+	
+
+	chassis.moveToPoint(56.5, 12.5, 3000, {.forwards = false});
+	pros::delay(2000);
+	
+	outtake_motors.move(-127);
+	intake_motors.move(-127);
+
+	pros::delay(100);
+	wingPiston.set_value(false); // open wings
+	outtake_motors.move(99);
+	intake_motors.move(99);
+
+	pros::delay(2500);
+	
+
+	chassis.setPose(0, 0, 0);
+
+	loaderPiston.set_value(true); // open loader wings
+	wingPiston.set_value(true); // close wings
+	chassis.moveToPoint(0.3, 29, 3000, {.maxSpeed = 40});
+
+	pros::delay(1000);
+	chassis.moveToPoint(0,0,5000, {.forwards = false, .maxSpeed = 81});
+	pros::delay(2000);
+
+	highScoring_motors.move(-100);
+	pros::delay(100);
+	wingPiston.set_value(false); // open wings
+	highScoring_motors.move(100);
+	loaderPiston.set_value(false); // close loader wings
+	pros::delay(2500);
+	wingPiston.set_value(true); // open loader wings
+	swing_turn(85, lemlib::DriveSide::RIGHT, 250, true); // turn to face second loader
+	pros::delay(500);
+
+
+	chassis.moveToPoint(0, 10.6, 1000);
+	pros::delay(500);
+	loaderPiston.set_value(true); // open loader wings
+	wingPiston.set_value(true); // close wings
+	intake_motors.move(0);
+	chassis.turnToHeading(90, 1000);
+	
+	
+
+	chassis.moveToPose(72, 3, 90, 4000, {.maxSpeed = 100});
+	pros::delay(1000);
+	chassis.turnToHeading(0, 1000); // face goal
+	pros::delay(500);
+	intake_motors.move(127);
+	outtake_motors.move(40);
+
+
+	chassis.moveToPoint(80.5, 37, 2300, {.maxSpeed = 43});
+	pros::delay(3700);
+	intake_motors.move(0);
+	outtake_motors.move(0);
+
+	//bs code
+	chassis.moveToPoint(80.5, 14.6, 1000, {.forwards = false, .maxSpeed = 70});
+	pros::delay(300);
+	chassis.turnToHeading(-45, 1000);
+	pros::delay(200);
+	chassis.moveToPoint(90, 0, 800, { .forwards = false, .maxSpeed = 100}); //move towards loader
+	pros::delay(300);
+	chassis.turnToHeading(0, 600);
+	pros::delay(200);
+	chassis.moveToPoint(95, -57, 2000, {.forwards = false, .maxSpeed = 100});
+	pros::delay(800);
+	loaderPiston.set_value(false); // close loader wing
+	pros::delay(500);
+	chassis.turnToHeading(90, 800);
+	pros::delay(500);
+
+	
+	chassis.moveToPoint(74, -69, 1000, {.forwards = false, .maxSpeed = 70});
+	pros::delay(1000);
+	chassis.turnToHeading(180, 800);
+	pros::delay(500);
+	chassis.moveToPoint(61, -45, 2500, {.forwards = false, .maxSpeed = 70});
+	pros::delay(500);
+	wingPiston.set_value(false); // open wings
+	highScoring_motors.move(-100);
+	pros::delay(100);
+	highScoring_motors.move(100);
+	pros::delay(2500);
+	loaderPiston.set_value(true); // open loader wings
+	chassis.setPose(0, 0, 0);
+	highScoring_motors.move(0);
+	pros::delay(500);
+	intake_motors.move(100);
+	outtake_motors.move(40);
+	chassis.moveToPoint(0.3, 29, 2500, {.maxSpeed = 40});
+	pros::delay(2000);
+	chassis.moveToPoint(0,0,5000, {.forwards = false, .maxSpeed = 70});
+	pros::delay(2000);
+	highScoring_motors.move(-100);
+	pros::delay(100);
+	wingPiston.set_value(false); // open wings
+	highScoring_motors.move(100);
+	loaderPiston.set_value(false); // close loader wings
+
+
+
+
+
+
+
+
+
+	 
+
+	return;
+	chassis.moveToPoint(80.5, -0.3, 1000, {.forwards = false, .maxSpeed = 70});
+	pros::delay(500);
+	//pros::delay(500);
+	highScoring_motors.move(-100);
+	pros::delay(100);
+	wingPiston.set_value(false);
+	highScoring_motors.move(100);
+	pros::delay(2000);
+	chassis.setPose(0, 0, 0);
+
+
+	chassis.moveToPoint(0, 10.6, 1000);
+	pros::delay(800);
+	chassis.turnToHeading(-45, 1000);
+	pros::delay(200);
+	chassis.moveToPoint(10, 0, 800, { .forwards = false, .maxSpeed = 100}); //move towards loader
+	pros::delay(300);
+	chassis.turnToHeading(0, 600); 
+	pros::delay(200);
+	chassis.moveToPoint(19, -43, 4000, {.forwards = false, .maxSpeed = 100});
+	pros::delay(800);
+	loaderPiston.set_value(false); // close loader wings
+	
+	swing_turn(175, lemlib::DriveSide::LEFT, 800, true); //just changed to 87 , initially 85
+	
+	pros::delay(500);
+	
+	//idk if it works
+	pros::delay(1000);
+	highScoring_motors.move(-100);
+	pros::delay(100);
+	loaderPiston.set_value(true); // open loader wings
+	wingPiston.set_value(false); // open wings
+	highScoring_motors.move(100);
+	pros::delay(2500);
+	chassis.setPose(0,0,0);
+	wingPiston.set_value(true); // close wings
+	chassis.moveToPoint(0, 25.9, 7000);
+	pros::delay(2000);
+	chassis.moveToPoint(0,0, 1200, {.forwards = false, .maxSpeed = 81});
+	pros::delay(2000);
+	loaderPiston.set_value(false); // close loader wings
+	highScoring_motors.move(-100);
+	pros::delay(100);
+	wingPiston.set_value(false); // open wings
+	highScoring_motors.move(100);
+	pros::delay(2500);
+	//wingPiston.set_value(true); // close wings
+
+
+
+
+
+
+	
+
+	
+
+
+
+
+
+
+
+
+	 // outtake
+
+	//chassis.moveToPoint(45, 17, 2000, {.forwards = false});
+	
+	
 	/*
 	chassis.moveToPoint(-17.9, 36.5, 1000, {.forwards = false});
 	pros::delay(200);
 	chassis.moveToPoint(-29.9, 36.5, 1000, {.maxSpeed = 40}); //back up a bit
 	pros::delay(800);
 	*/
+	/*
 	chassis.moveToPoint(-5, 36.5, 1000, {.forwards = false});
 	pros::delay(200);
 
@@ -134,10 +359,10 @@ void autonomous() {
 	highScoring_motors.move(127); // outtake
 	pros::delay(1200);
 	
+	*/
+
+
 	
-
-
-
 
 	/*
 	chassis.turnToHeading(0, 1000);
@@ -146,32 +371,11 @@ void autonomous() {
 	pros::delay(200);
 	*/
 	
-
+	// swing_turn(180, lemlib::DriveSide::LEFT, 1300); // turn to face first loader
+	// pros::delay(200);
 
 
 }
-
-/*chassis.swingToHeading(-180, lemlib::DriveSide::LEFT, 1300); // turn to face second loader
-	pros::delay(200);
-	loaderPiston.set_value(false);
-	chassis.swingToHeading(-90, lemlib::DriveSide::RIGHT, 1300); // turn to face second loader
-	pros::delay(200);
-	
-	chassis.moveToPose(80, 28.5, 90, 1500, {.forwards = false}); // move to outtake zone
-	pros::delay(500);
-
-	chassis.swingToHeading(90, lemlib::DriveSide::RIGHT, 1000); // align to goal
-	pros::delay(200);
-
-	chassis.moveToPoint(9, 50, 1000, {.forwards = false});
-	pros::delay(500);
-	loaderPiston.set_value(true); // close loader wings
-	pros::delay(600);
-	wingPiston.set_value(false); // open wings
-	pros::delay(500);
-	highScoring_motors.move(127); // outtake
-	pros::delay(1200);
-	wingPiston.set_value(true); // close wings*/
 
 
 void opcontrol() {
