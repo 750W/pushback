@@ -2,7 +2,7 @@
 #include "lemlib/api.hpp"
 
 
-void auton1();
+void seven_wingR();
 void auton2();
 void auton3();
 
