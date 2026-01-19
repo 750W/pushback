@@ -2,6 +2,10 @@
 #include "lemlib/api.hpp"
 #include "headers/robot_config.hpp"
 #include "headers/autons.hpp"
+#include <iostream>
+#include <fstream>
+
+int readAuton();
 
 
 void on_center_button() {
@@ -17,6 +21,7 @@ void on_center_button() {
 // initialize function. Runs on program startup
 void initialize() {
     pros::lcd::initialize(); // initialize brain screen
+	wingPiston.set_value(false);
 	
     chassis.calibrate(); // calibrate sensors
     // print position to brain screen
@@ -274,15 +279,46 @@ void autonomous() {
 	*/
 
 
-	seven_wingR();
+	// seven_wingR();
+
+
+	int autonNum = readAuton();
+
+   switch(autonNum)
+    {
+     case 0: 
+      master.print(0,0, "Prog Skills");
+       progskills1();
+       break;
+
+     case 1: 
+       master.print(0,0, "Seven Wing Left");
+       seven_wingL();
+       break;
+    
+     case 2:
+      master.print(0,0, "Seven Wing Right");
+      seven_wingR();
+      break;
+    }
+
+
+   //chassis.moveToPoint(0, 4, 1000);
 
 	
 }
 
+int readAuton() {
+  std::ifstream autonFile("/usd/auton.txt");
+  int auton;
+  autonFile >> auton;
+  autonFile.close();
+  return auton;
+}
 
 void opcontrol() {
 
-	bool wingToggled = false;
+	bool wingToggled = true;
 	bool loaderToggled = false;
 	while (true) {
 		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,

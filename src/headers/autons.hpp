@@ -3,7 +3,7 @@
 
 
 void seven_wingR();
-void auton2();
+void seven_wingL();
 void auton3();
 
 
