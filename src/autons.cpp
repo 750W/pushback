@@ -50,7 +50,7 @@ void progskills1()
 
 
 
-	chassis.moveToPoint(74.9, 22.2, 1000, {.forwards = false, .maxSpeed = 100});
+	chassis.moveToPoint(74.9, 24.5, 1000, {.forwards = false, .maxSpeed = 100});
 	pros::delay(100);
 
 
@@ -226,21 +226,22 @@ void seven_wingR()
     pros::delay(300);
     chassis.turnToHeading(20.8, 1000);
     pros::delay(500);
-    chassis.moveToPoint(5.84, 17, 1200, {.maxSpeed = 50});
+    chassis.moveToPoint(5.84, 17, 1200, {.maxSpeed = 40});
     chassis.waitUntil(14);
     loaderPiston.set_value(true);
     pros::delay(300);
     chassis.turnToHeading(132, 1000);
     pros::delay(200);
-    chassis.moveToPoint(14.3, -6, 1400, {.maxSpeed = 90});
+    chassis.moveToPoint(11.1, -6, 1400, {.maxSpeed = 90});
     pros::delay(300);
     loaderPiston.set_value(true);
     pros::delay(300);
     chassis.turnToHeading(180, 1000);
     pros::delay(200);
     chassis.moveToPoint(9.9, -15, 1200, {.maxSpeed = 70});
+	//chassis.moveToPose(9.9, -15, 180, 1200);
     pros::delay(800);
-    chassis.moveToPoint(6.44, 15.3, 2700, {.forwards = false, .maxSpeed = 70});
+    chassis.moveToPoint(7.3, 15.3, 2500, {.forwards = false, .maxSpeed = 70});
     pros::delay(800);
     intake_motors.move(-127);
     wingPiston.set_value(false);
@@ -252,15 +253,15 @@ void seven_wingR()
     wingPiston.set_value(false);
     chassis.moveToPoint(8.5, 2.44, 1000, {.maxSpeed = 80});
     pros::delay(300);
-    chassis.turnToHeading(127, 800);
+    chassis.turnToHeading(120, 800);
     pros::delay(200);
-    chassis.moveToPoint(4.2, 4.2, 1000, {.forwards = false, .maxSpeed = 70});
+    chassis.moveToPoint(4.6, 3.8, 1000, {.forwards = false, .maxSpeed = 70});
     pros::delay(500);
     //chassis.moveToPoint(7.08, 0.917, 1000, {.forwards = true, .maxSpeed = 60});
     //pros::delay(300);
-    chassis.turnToHeading(175, 1000);
+    chassis.turnToHeading(174, 1000);
     pros::delay(200);
-    chassis.moveToPoint(0.5, 30.3, 1800, {.forwards = false, .maxSpeed = 80});
+    chassis.moveToPoint(2.5, 30.3, 1800, {.forwards = false, .maxSpeed = 80});
 
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
 
@@ -268,32 +269,47 @@ void seven_wingR()
 
 void seven_wingL()
 {
-    wingPiston.set_value(true);
+	wingPiston.set_value(true);
     intake_motors.move(127);
     outtake_motors.move(40);
-    chassis.moveToPoint(0.07, 2.8, 400, {.maxSpeed = 80});
+    chassis.moveToPoint(-0.07, 2.8, 400, {.maxSpeed = 80});
     pros::delay(300);
     chassis.turnToHeading(-20.8, 1000);
     pros::delay(500);
+    chassis.moveToPoint(-9, 23, 1200, {.maxSpeed = 40});
+    chassis.waitUntil(14);
     loaderPiston.set_value(true);
-    chassis.moveToPoint(6.11, 15, 1200, {.maxSpeed = 50});
     pros::delay(300);
     chassis.turnToHeading(-132, 1000);
-    pros::delay(200);
-    chassis.moveToPoint(14, -6, 1400, {.maxSpeed = 90});
+	pros::delay(400);
+	chassis.moveToPoint(-15, 40, 1200, {.forwards = false, .maxSpeed = 70}); // mid goal
+	pros::delay(500);
+	intake_motors.move_velocity(100);
+	outtake_motors.move_velocity(-90);
+	pros::delay(300);
+	intake_motors.move_velocity(100);
+	outtake_motors.move_velocity(-40);
+    pros::delay(800);
+    chassis.moveToPoint(-44.5, 12.9, 1400, {.maxSpeed = 90});
     pros::delay(300);
     loaderPiston.set_value(true);
     pros::delay(300);
-    chassis.turnToHeading(-180, 1000);
+    chassis.turnToHeading(-184, 1000);
     pros::delay(200);
-    chassis.moveToPoint(11.4, -13, 1400, {.maxSpeed = 81});
-    pros::delay(1000);
-    chassis.moveToPoint(7.65, 15.3, 2300, {.forwards = false, .maxSpeed = 81});
+    chassis.moveToPoint(-50, -8, 1600, {.maxSpeed = 70}); // match load
     pros::delay(800);
+	//dk if this works
+    chassis.moveToPoint(-50.5, 19, 2700, {.forwards = false, .maxSpeed = 70});
+    pros::delay(800);
+    intake_motors.move(-127);
     wingPiston.set_value(false);
+    outtake_motors.move(0);
+    pros::delay(200);
     highScoring_motors.move(127);
     pros::delay(400);
     loaderPiston.set_value(false);
+    wingPiston.set_value(false);
+	
 
     /*
     chassis.moveToPoint(9.49, 2.44, 1000, {.maxSpeed = 80});
