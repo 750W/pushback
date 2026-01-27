@@ -190,6 +190,123 @@ void progskills1()
 	chassis.moveToPoint(40, 25, 2000, {.minSpeed= 118});
 }
 
+void progskills2()
+{
+    chassis.setPose(0, 0, 0);
+    // wingPiston.set_value(true); // close wings
+    // intake_motors.move(127);
+    // outtake_motors.move(40);
+    // chassis.moveToPose(-8, 23, -39.1, 2000);
+    // pros::delay(100);
+    // chassis.moveToPoint(-9, 24, 2000);
+    // pros::delay(100);
+    // chassis.turnToHeading(-130.4, 1000);
+    // pros::delay(200);
+    // chassis.moveToPoint(-14.7, 38, 700, {.forwards = false, .maxSpeed = 60});
+    // pros::delay(1000);
+    // intake_motors.move(70);
+    // outtake_motors.move(-70);
+    // pros::delay(2000);
+    // intake_motors.move(0);
+    // outtake_motors.move(0);
+    // chassis.moveToPoint(-46, 13, 2500, { .maxSpeed = 90});
+    // chassis.turnToHeading(-180, 1000);
+    // intake_motors.move(127);
+    // outtake_motors.move(40);
+    // loaderPiston.set_value(true); // open loader
+    // pros::delay(500);
+    // chassis.moveToPoint(-52, -12, 3000, {.maxSpeed = 40});
+    // pros::delay(3000);
+    // intake_motors.move(0);
+    // outtake_motors.move(0);
+
+    // chassis.moveToPoint(-51, 0, 2000, {.forwards = false});
+    // pros::delay(1000);
+    // loaderPiston.set_value(false); // close loader
+    // chassis.turnToHeading(-207, 1000);
+    // pros::delay(1000);
+    // chassis.moveToPoint(-56, 8, 1400, {.forwards = false});
+    // pros::delay(1000);
+    // chassis.turnToHeading(-180, 1000);
+    // pros::delay(500);
+    // chassis.moveToPoint(-56, 78, 5000, {.forwards = false, .maxSpeed = 90});
+    // pros::delay(2000);
+    // chassis.turnToHeading(-90, 1000);
+    // pros::delay(500);
+    // chassis.moveToPoint(-33, 87, 3000, {.forwards = false});
+    // pros::delay(2000);
+    // chassis.turnToHeading(0, 1000);
+    // pros::delay(500);
+    // chassis.moveToPoint(-23, 67, 4000, {.forwards = false});
+    // pros::delay(2000);
+    // wingPiston.set_value(false); // open wings
+    // highScoring_motors.move(-100);
+    // pros::delay(100);
+    // highScoring_motors.move(100);
+    // pros::delay(2500);
+    // chassis.setPose(0, 0, 0);
+    // pros::delay(100);
+    // loaderPiston.set_value(true); 
+    // wingPiston.set_value(true);
+    // highScoring_motors.move(0);
+    // outtake_motors.move(40);
+    // intake_motors.move(127);
+
+    // chassis.moveToPoint(0, 33, 3200, {.maxSpeed = 45, .minSpeed = 20});
+    // pros::delay(3000);
+    // chassis.moveToPoint(0,0,3000, {.forwards = false, .maxSpeed = 81});
+    // pros::delay(550);
+    // highScoring_motors.move(-100);
+    // pros::delay(100);
+    // highScoring_motors.move(100);
+    // wingPiston.set_value(false); // open wings
+    // loaderPiston.set_value(false); // close loader wings
+    // pros::delay(2000);
+    // wingPiston.set_value(true); // open loader wings
+    // pros::delay(500);
+    // chassis.turnToHeading(30, 1000);
+    // pros::delay(500);
+
+    // wingPiston.set_value(true); // close wings
+    // intake_motors.move(100);
+    // outtake_motors.move(40);
+
+    chassis.setPose(0, 0, 0);
+    intake_motors.move(120);
+    outtake_motors.move(40);
+    wingPiston.set_value(true); // close wings
+    chassis.moveToPoint(0, 8, 2000, {.maxSpeed = 100});
+    pros::delay(100);
+    chassis.turnToHeading(30, 1000);
+    pros::delay(100);
+    chassis.moveToPoint(11,19.5 , 2500, {.maxSpeed = 90});
+    pros::delay(1000);
+
+    chassis.swingToHeading(80, lemlib::DriveSide::LEFT, 1000);
+    pros::delay(500);
+
+    
+    chassis.moveToPoint(65, 24, 2000, {.maxSpeed = 60});
+    chassis.moveToPoint(75, 24, 2000, {.maxSpeed = 100});
+    
+
+    pros::delay(3000);
+    chassis.swingToHeading(18, lemlib::DriveSide::LEFT, 1000);
+    pros::delay(1000);
+    chassis.moveToPoint(66, -14, 10000, {.forwards = false, .maxSpeed = 80});
+    pros::delay(500);
+    chassis.swingToHeading(45, lemlib::DriveSide::RIGHT, 1000);
+    pros::delay(2000);
+    intake_motors.move(90);
+    outtake_motors.move(-50);
+
+    pros::delay(3000);
+    intake_motors.move(0);
+    outtake_motors.move(0);
+    
+}
+
+
 void seven_wingR()
 {
     /*

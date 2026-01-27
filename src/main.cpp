@@ -281,6 +281,9 @@ void autonomous() {
 
 	// seven_wingR();
 
+	// chassis.turnToHeading(90, 5000);
+	// pros::delay(500);
+	// return;
 
 	int autonNum = readAuton();
 
@@ -288,7 +291,7 @@ void autonomous() {
     {
      case 0: 
       master.print(0,0, "Prog Skills");
-       progskills1();
+       progskills2();
        break;
 
      case 1: 
