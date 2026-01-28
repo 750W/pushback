@@ -296,7 +296,7 @@ void autonomous() {
 
      case 1: 
        master.print(0,0, "Seven Wing Left");
-       seven_wingL();
+       sawp_r();
        break;
     
      case 2:

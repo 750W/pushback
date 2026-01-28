@@ -5,6 +5,7 @@
 void seven_wingR();
 void seven_wingL();
 void auton3();
+void sawp_r();
 
 
 void progskills1();

@@ -443,3 +443,45 @@ void seven_wingL()
     */
 
 }
+
+void sawp_r()
+{
+    chassis.setPose(0, 0, 0);
+
+    pros::delay(100); // let odometry stabilize after pose reset
+    wingPiston.set_value(true); // close wings
+
+    chassis.moveToPoint(0, 26, 2000);
+    pros::delay(100);
+    chassis.turnToHeading(90, 1000);
+    loaderPiston.set_value(true); // open loader wings
+    intake_motors.move(127);
+    outtake_motors.move(60);
+    pros::delay(100);
+    chassis.moveToPoint(1.5, 14.5, 2000, {.maxSpeed = 50});
+    pros::delay(1000);
+    chassis.moveToPoint(-29,14.5,3000, {.forwards = false, .maxSpeed = 70});
+    pros::delay(700);
+    wingPiston.set_value(false); // open wings
+    highScoring_motors.move(-100);
+    pros::delay(100);
+    highScoring_motors.move(100);
+    wingPiston.set_value(false); // close wings
+    loaderPiston.set_value(false); // close loader wings
+
+    pros::delay(2500);
+    chassis.setPose(0, 0, 0);
+    pros::delay(100); // let odometry stabilize after pose reset
+    intake_motors.move(127);
+    outtake_motors.move(60);
+    wingPiston.set_value(true); // close wings
+    chassis.swingToHeading(145, lemlib::DriveSide::LEFT, 4000);
+    pros::delay(500);
+    chassis.moveToPoint(0, -12, 10000, {.maxSpeed = 50});
+    pros::delay(500);
+    chassis.turnToHeading(90, 2000);
+    pros::delay(500);
+    chassis.moveToPoint(48, -16, 4000);
+
+
+}
