@@ -444,6 +444,17 @@ void seven_wingL()
 
 }
 
+/// @brief  Moves the motors a little to keep match loader pressed
+void load_hold() {
+    left_motors.move(24);
+    right_motors.move(24);
+}
+
+void load_stop() {
+    left_motors.move(0);
+    right_motors.move(0);
+}
+
 void sawp_r()
 {
     chassis.setPose(0, 0, 0);
@@ -451,16 +462,16 @@ void sawp_r()
     pros::delay(100); // let odometry stabilize after pose reset
     wingPiston.set_value(true); // close wings
 
-    chassis.moveToPoint(0, 26, 2000);
-    pros::delay(100);
-    chassis.turnToHeading(90, 1000);
+    chassis.moveToPoint(0, 26, 1100);
+    chassis.turnToHeading(90, 550);
     loaderPiston.set_value(true); // open loader wings
     intake_motors.move(127);
     outtake_motors.move(60);
-    pros::delay(100);
-    chassis.moveToPoint(1.5, 14.5, 2000, {.maxSpeed = 50});
-    pros::delay(1000);
-    chassis.moveToPoint(-29,14.5,3000, {.forwards = false, .maxSpeed = 70});
+    chassis.moveToPoint(1.5, 14.3, 2000, {.maxSpeed = 40, .minSpeed = 24});
+    load_hold();
+    pros::delay(100); // LOADING TIME
+    load_stop();
+    chassis.moveToPoint(-29,14.5,3000, {.forwards = false, .maxSpeed = 85});
     pros::delay(700);
     wingPiston.set_value(false); // open wings
     highScoring_motors.move(-100);
@@ -468,20 +479,30 @@ void sawp_r()
     highScoring_motors.move(100);
     wingPiston.set_value(false); // close wings
     loaderPiston.set_value(false); // close loader wings
-
-    pros::delay(2500);
+    pros::delay(900); // SCORING TIME
+    highScoring_motors.move(0);
     chassis.setPose(0, 0, 0);
     pros::delay(100); // let odometry stabilize after pose reset
-    intake_motors.move(127);
+    // outtake_motors.move(-127);
+    chassis.swingToHeading(145, lemlib::DriveSide::LEFT, 4000, {.minSpeed = 36}, true);
+    pros::delay(100);
+    highScoring_motors.move(127);
+    chassis.waitUntilDone();
     outtake_motors.move(60);
     wingPiston.set_value(true); // close wings
-    chassis.swingToHeading(145, lemlib::DriveSide::LEFT, 4000);
-    pros::delay(500);
-    chassis.moveToPoint(0, -12, 10000, {.maxSpeed = 50});
+    chassis.moveToPoint(0, -12, 10000, {.maxSpeed = 50}, true); // grabs corners
+    pros::delay(200);
+    loaderPiston.set_value(true);
+    chassis.waitUntilDone();
     pros::delay(500);
     chassis.turnToHeading(90, 2000);
+    loaderPiston.set_value(false);
     pros::delay(500);
-    chassis.moveToPoint(48, -16, 4000);
-
+    chassis.moveToPoint(44.5, -20, 4000);
+    chassis.turnToHeading(50, 550);
+    highScoring_motors.move(0);
+    pros::delay(67);
+    // chassis.moveToPose(45, -20, 47, 2000, {.forwards = false, .maxSpeed = 75});
+    
 
 }
