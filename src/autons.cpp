@@ -467,42 +467,51 @@ void sawp_r()
     loaderPiston.set_value(true); // open loader wings
     intake_motors.move(127);
     outtake_motors.move(60);
-    chassis.moveToPoint(1.5, 14.3, 2000, {.maxSpeed = 40, .minSpeed = 24});
+    chassis.moveToPoint(1.5, 14.3, 1800, {.maxSpeed = 40, .minSpeed = 24});
     load_hold();
     pros::delay(100); // LOADING TIME
     load_stop();
-    chassis.moveToPoint(-29,14.5,3000, {.forwards = false, .maxSpeed = 85});
+    chassis.moveToPoint(-29,15.1,3000, {.forwards = false, .maxSpeed = 67}); // into goal
     pros::delay(700);
-    wingPiston.set_value(false); // open wings
+    wingPiston.set_value(false); // open hood
     highScoring_motors.move(-100);
     pros::delay(100);
     highScoring_motors.move(100);
-    wingPiston.set_value(false); // close wings
-    loaderPiston.set_value(false); // close loader wings
-    pros::delay(900); // SCORING TIME
+    loaderPiston.set_value(false); // close loader
+    pros::delay(1000); // SCORING TIME
     highScoring_motors.move(0);
+    wingPiston.set_value(true); // open wings
     chassis.setPose(0, 0, 0);
     pros::delay(100); // let odometry stabilize after pose reset
     // outtake_motors.move(-127);
-    chassis.swingToHeading(145, lemlib::DriveSide::LEFT, 4000, {.minSpeed = 36}, true);
+    chassis.moveToPoint(0, 2.5, 800, {.minSpeed = 40});
+    chassis.swingToHeading(145, lemlib::DriveSide::LEFT, 4000, {.minSpeed = 50}, true);
     pros::delay(100);
-    highScoring_motors.move(127);
+    wingPiston.set_value(false); // open hood
+    highScoring_motors.move(127); // purge extra
     chassis.waitUntilDone();
     outtake_motors.move(60);
-    wingPiston.set_value(true); // close wings
-    chassis.moveToPoint(0, -12, 10000, {.maxSpeed = 50}, true); // grabs corners
-    pros::delay(200);
+    chassis.moveToPoint(0, -13.3, 10000, {.maxSpeed = 50}, true); // grabs corners
+    pros::delay(550);
     loaderPiston.set_value(true);
     chassis.waitUntilDone();
     pros::delay(500);
+    wingPiston.set_value(true); // close hood
     chassis.turnToHeading(90, 2000);
     loaderPiston.set_value(false);
     pros::delay(500);
-    chassis.moveToPoint(44.5, -20, 4000);
-    chassis.turnToHeading(50, 550);
+    chassis.moveToPoint(52.5, -18, 4000, {.maxSpeed = 95}, true);
+    pros::delay(777);
+    loaderPiston.set_value(true);
+    chassis.waitUntilDone();
+    pros::delay(100);
+    loaderPiston.set_value(false);
+    chassis.turnToHeading(46, 550, {}, false);
+    chassis.moveToPoint(47.4, -28, 1600, {.forwards = false, .maxSpeed = 50}, false);
+    pros::delay(77);
+    intake_motors.move(127);
+    outtake_motors.move(-95);
+    pros::delay(600); // MID GOAL SCORING TIME
     highScoring_motors.move(0);
-    pros::delay(67);
-    // chassis.moveToPose(45, -20, 47, 2000, {.forwards = false, .maxSpeed = 75});
-    
 
 }
