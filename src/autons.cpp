@@ -509,9 +509,25 @@ void sawp_r()
     chassis.turnToHeading(46, 550, {}, false);
     chassis.moveToPoint(47.4, -28, 1600, {.forwards = false, .maxSpeed = 50}, false);
     pros::delay(77);
+    intake_motors.move(-127);
+    pros::delay(100);
     intake_motors.move(127);
     outtake_motors.move(-95);
     pros::delay(600); // MID GOAL SCORING TIME
     highScoring_motors.move(0);
+    pros::delay(200);
+    intake_motors.move(127);
+    outtake_motors.move(60);
+    chassis.moveToPoint(80, 2, 3000);
+    pros::delay(500);
+    chassis.turnToHeading(0, 1500);
+    pros::delay(500);
+    chassis.moveToPoint(82, -5, 2500, {.forwards = false});
+    pros::delay(700);
+    wingPiston.set_value(false); // open hood
+    highScoring_motors.move(-100);
+    pros::delay(100);
+    highScoring_motors.move(100);
+    pros::delay(1500); // SCORING TIME
 
 }
