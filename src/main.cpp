@@ -290,13 +290,13 @@ void autonomous() {
    switch(autonNum)
     {
      case 0: 
-      master.print(0,0, "Prog Skills");
-       progskills2();
+      master.print(0,0, "Sawp");
+       sawp_r();
        break;
 
      case 1: 
        master.print(0,0, "Seven Wing Left");
-       sawp_r();
+       seven_wingL();
        break;
     
      case 2:
@@ -346,7 +346,7 @@ void opcontrol() {
 		} else if(master.get_digital(DIGITAL_R2)) {
 			intake_motors.move(-127);
 			if(!master.get_digital(DIGITAL_L1) && !master.get_digital(DIGITAL_L2))
-			outtake_motors.move(-40);
+			outtake_motors.move(-60);
 		} else {
 			intake_motors.move(0);
 		}
