@@ -325,6 +325,7 @@ void opcontrol() {
 
 	bool wingToggled = true;
 	bool loaderToggled = false;
+	bool intakeToggled = false;
 	while (true) {
 		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
 		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
@@ -339,26 +340,12 @@ void opcontrol() {
 
 		if(master.get_digital(DIGITAL_R1)) {
 			intake_motors.move(127);
-			if(!master.get_digital(DIGITAL_L1) && !master.get_digital(DIGITAL_L2))
-			outtake_motors.move(40);
-			//if(master.get_digital(DIGITAL_L1)) // changed 01/12/26 -> if both outtake motors are triggered, hood will automatically open
-			//wingPiston.set_value(!wingToggled); 		// *if you dont like this, make it hold instead of toggle*
 		} else if(master.get_digital(DIGITAL_R2)) {
 			intake_motors.move(-127);
-			if(!master.get_digital(DIGITAL_L1) && !master.get_digital(DIGITAL_L2))
-			outtake_motors.move(-60);
 		} else {
 			intake_motors.move(0);
 		}
 
-		if(master.get_digital(DIGITAL_L1)) {
-			outtake_motors.move(127);
-		} else if(master.get_digital(DIGITAL_L2)) {
-			outtake_motors.move(-127);
-		} else {
-			if(!master.get_digital(DIGITAL_R1) && !master.get_digital(DIGITAL_R2))
-			outtake_motors.move(0);
-		}
 
 		if(master.get_digital_new_press(DIGITAL_B))
 		{
@@ -371,6 +358,13 @@ void opcontrol() {
 			loaderToggled = !loaderToggled;
 			loaderPiston.set_value(loaderToggled);
 		}
+
+		if(master.get_digital_new_press(DIGITAL_Y))
+		{
+			intakeToggled = !intakeToggled;
+			intakePiston.set_value(intakeToggled);
+		}
+		
 		pros::delay(20);                              
 	}
 }

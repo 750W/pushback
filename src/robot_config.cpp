@@ -5,17 +5,18 @@
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 
 // Motors 
-pros::MotorGroup left_motors({18,19, 20});    
-pros::MotorGroup right_motors({-11, -12, -13});  
+pros::MotorGroup left_motors({1,2, 3});    
+pros::MotorGroup right_motors({-4, -5, -6});  
 
-pros::MotorGroup intake_motors({9,10});
+pros::MotorGroup intake_motors({7,-8});
 pros::Motor outtake_motors(1);
 
 pros::MotorGroup highScoring_motors({9,10,1});
 
 //Pneumatics
-pros::adi::DigitalOut wingPiston('A');
+pros::adi::DigitalOut wingPiston('E');
 pros::adi::DigitalOut loaderPiston('B'); //change later
+pros::adi::DigitalOut intakePiston('A'); //change later
 
 // Sensors (change port!)
 pros::Imu imu(2);

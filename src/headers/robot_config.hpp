@@ -16,6 +16,7 @@ extern pros::MotorGroup highScoring_motors;
 
 extern pros::adi::DigitalOut wingPiston;
 extern pros::adi::DigitalOut loaderPiston;
+extern pros::adi::DigitalOut intakePiston;
 
 // Sensors (example: IMU)
 extern pros::Imu imu;
