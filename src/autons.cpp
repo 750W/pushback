@@ -1,6 +1,7 @@
 #include "headers/autons.hpp"
 #include "lemlib/api.hpp"
 #include "headers/robot_config.hpp"
+#include "pros/motors.h"
 
 /// @brief  Moves the motors a little to keep match loader pressed
 void load_hold() {
@@ -378,6 +379,57 @@ void seven_wingR()
 
 }
 
+void seven_wingR_new()
+{
+    chassis.setPose(0,0,0);
+	wingPiston.set_value(true);
+    intakePiston.set_value(true);
+    intake_motors.move(127);
+    pros::delay(500);
+    chassis.moveToPose(7.5, 24.5, 25.3, 1200, {.maxSpeed = 80});
+    chassis.waitUntil(14);
+    //return;
+    loaderPiston.set_value(true);
+    pros::delay(300);
+    chassis.turnToHeading(145.5, 1000, {.maxSpeed = 80});
+	pros::delay(400);
+    //return;
+
+    chassis.moveToPoint(12.0, -6.5, 1400, {.maxSpeed = 70});
+    //pros::delay(700);
+    //return;
+    chassis.turnToHeading(180, 1000);
+    pros::delay(300);
+    
+
+    loaderPiston.set_value(true);
+    chassis.moveToPoint(10.8, -16.5, 1600, {.maxSpeed = 65}); // match load
+    //wingPiston.set_value(false);
+    pros::delay(900);
+	//dk if this works
+    chassis.moveToPoint(7.6, 22, 2800, {.forwards = false, .maxSpeed = 70});
+    pros::delay(1500);
+    
+    loaderPiston.set_value(false);
+    wingPiston.set_value(false);
+    pros::delay(1000);
+    chassis.moveToPoint(9.6, 7.7, 1800, {.maxSpeed = 49, .minSpeed = 37});
+    //wingPiston.set_value(false);
+    
+    chassis.turnToHeading(-135, 400, {.minSpeed = 37});
+
+    //return;
+    chassis.moveToPoint(15.6,17.5, 1400, {.forwards=false, .maxSpeed=45, .minSpeed=37});
+    chassis.turnToHeading(190, 1400);
+    chassis.moveToPoint(12.4, 38.3, 1400, {.forwards = false, .maxSpeed = 40});
+
+    chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
+
+    
+    
+
+}
+
 void seven_wingL()
 {
 	wingPiston.set_value(true);
@@ -448,10 +500,82 @@ void seven_wingL()
 
 }
 
+void seven_wingL_new()
+{
+    chassis.setPose(0,0,0);
+	wingPiston.set_value(true);
+    intakePiston.set_value(true);
+    //intake_motors.move(90);
+    bottom_intake_motor.move(127);
+    top_intake_motor.move(90);
+    pros::delay(500);
+    chassis.moveToPose(-7.5, 24.5, -23.3, 1200, {.maxSpeed = 80});
+    chassis.waitUntil(17);
+    //return;
+    loaderPiston.set_value(true);
+    pros::delay(300);
+    chassis.turnToHeading(-136.5, 1000);
+	pros::delay(400);
+	chassis.moveToPoint(-14.1, 39, 3000, {.forwards = false, .maxSpeed = 70}); // mid goal
+    pros::delay(100);
+    //return;
+	pros::delay(800);
+	intakePiston.set_value(false);
+    pros::delay(300);
+    loaderPiston.set_value(false);
+    pros::delay(800);
+    intakePiston.set_value(true);
+    intake_motors.move(127);
+    chassis.moveToPoint(-46.7, 9.37, 1400, {.maxSpeed = 70});
+    //pros::delay(700);
+    //return;
+    chassis.turnToHeading(180, 1000);
+    pros::delay(300);
+    loaderPiston.set_value(true);
+    chassis.moveToPoint(-49.5, -10.5, 900, {.maxSpeed = 65}); // match load
+    //wingPiston.set_value(false);
+    pros::delay(100);
+    intake_motors.move(127);
+	//dk if this works
+    chassis.moveToPoint(-49, 22, 2800, {.forwards = false, .maxSpeed = 70});
+    pros::delay(800);
+   
+   // pros::delay(900);
+    loaderPiston.set_value(false);
+    wingPiston.set_value(false);
+    pros::delay(800);
+    chassis.moveToPoint(-49.6, 7.7, 1800, {.maxSpeed = 49, .minSpeed = 37});
+    wingPiston.set_value(false);
+    //return;
+    chassis.turnToHeading(-142, 400, {.minSpeed = 37});
+    chassis.moveToPoint(-39.2,24.3, 1400, {.forwards=false, .maxSpeed=45, .minSpeed=37});
+    chassis.turnToHeading(-180, 1400);
+    chassis.moveToPoint(-42.4, 34.3, 1400, {.forwards = false, .maxSpeed = 40});
+
+    chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
+	
+
+    /*
+    chassis.moveToPoint(9.49, 2.44, 1000, {.maxSpeed = 80});
+    pros::delay(300);
+    chassis.turnToHeading(127, 800);
+    pros::delay(200);
+    chassis.moveToPoint(3.8, 4.2, 1000, {.forwards = false, .maxSpeed = 70});
+    pros::delay(500);
+    //chassis.moveToPoint(7.08, 0.917, 1000, {.forwards = true, .maxSpeed = 60});
+    //pros::delay(300);
+    chassis.turnToHeading(175, 1000);
+    pros::delay(200);
+    chassis.moveToPoint(0.5, 30.3, 1800, {.forwards = false, .maxSpeed = 50});
+    */
+
+}
+
 
 void sawp_r()
 {
     chassis.setPose(0, 0, 0);
+
 
     pros::delay(100); // let odometry stabilize after pose reset
     wingPiston.set_value(true); // close wings
@@ -530,3 +654,227 @@ void sawp_r()
     pros::delay(1500); // SCORING TIME*/
 
 }
+
+void sawp_r_new(){
+    intakePiston.set_value(true);
+    wingPiston.set_value(true);
+    chassis.setPose(0, 0, 0);
+    pros::delay(100); // let odometry stabilize after pose reset
+    chassis.moveToPoint(0.4, 25.5, 1600, {.maxSpeed = 80});
+    
+    pros::delay(700);
+    chassis.turnToHeading(90, 800, {.maxSpeed = 80});
+    pros::delay(400);
+    loaderPiston.set_value(true); // open loader wings
+    intake_motors.move(127);
+    chassis.moveToPoint(3.2, 15.9, 950, {.maxSpeed = 40, .minSpeed = 24}); //match loader
+    pros::delay(1100);
+    chassis.moveToPoint(-29.1, 14.9, 1600, {.forwards = false, .maxSpeed = 76, .minSpeed = 42}); // into goal
+    pros::delay(700);
+    wingPiston.set_value(false);
+    loaderPiston.set_value(false);
+    pros::delay(1000);
+    chassis.moveToPoint(-24, 14.9, 500, {.maxSpeed = 90, .minSpeed = 50});
+    chassis.swingToHeading(220, lemlib::DriveSide::LEFT, 2500, {.maxSpeed = 70, .minSpeed = 30}, true);
+    //pros::delay(300);
+    wingPiston.set_value(true);
+
+    chassis.moveToPoint(-40.3, 11.6, 1200, {.maxSpeed = 80});
+    pros::delay(500);
+    loaderPiston.set_value(true);
+    pros::delay(400);
+    loaderPiston.set_value(false);
+    chassis.turnToHeading(-180, 1000, {.maxSpeed = 60});
+    chassis.moveToPoint(-42.5, -37.5, 2000, {.maxSpeed = 95});
+    pros::delay(950);
+    loaderPiston.set_value(true);
+    pros::delay(400);
+    loaderPiston.set_value(false);
+    chassis.turnToHeading(144, 600, {.maxSpeed = 80});
+    //return;
+    chassis.moveToPoint(-49.5, -34.5, 1400, {.forwards = false, .maxSpeed = 65});
+    top_intake_motor.move(70);
+    bottom_intake_motor.move(90);
+    pros::delay(300);
+    intakePiston.set_value(false);
+    pros::delay(400);
+    //intake_motors.move(-127);
+    //pros::delay(400);
+    intakePiston.set_value(true);
+    intake_motors.move(127);
+    //chassis.turnToHeading(145, 600, {.maxSpeed = 80});
+
+    chassis.moveToPoint(-23.3, -62.7, 1500, {.maxSpeed = 100});
+    loaderPiston.set_value(true);
+    chassis.turnToHeading(90, 700, {.maxSpeed = 80});
+    chassis.moveToPoint(11, -66, 950, {.maxSpeed = 70});
+    pros::delay(700);
+    chassis.moveToPoint(-26, -68, 1700, {.forwards = false, .maxSpeed = 90});
+    pros::delay(550);
+    wingPiston.set_value(false);
+
+
+
+}
+
+void progskills3()
+{
+    
+    chassis.setPose(0, 0, 0);
+
+    wingPiston.set_value(true);
+    intakePiston.set_value(true);
+    intake_motors.move(127);
+    chassis.moveToPoint(-0.07, 2.8, 400, {.maxSpeed = 80});
+    chassis.turnToHeading(-24.2, 700);
+    chassis.moveToPoint(-5, 22.3, 1200, {.maxSpeed = 50});
+    chassis.waitUntil(10);
+    //pros::delay(300);
+    chassis.turnToHeading(-132, 1000);
+    //pros::delay(400);
+    chassis.moveToPoint(-13.5, 39.0, 1950, {.forwards = false, .maxSpeed = 70}); // middle goal
+    pros::delay(900);
+    intakePiston.set_value(false);
+    intake_motors.move(96);
+    pros::delay(550);
+    //chassis.setPose(-13.5, 39, -132);
+    intakePiston.set_value(true);
+    chassis.moveToPoint(-43, 11, 1400, {.maxSpeed = 70});
+    //pros::delay(700);
+    chassis.turnToHeading(180, 1000);
+    pros::delay(300);
+    loaderPiston.set_value(true);
+    chassis.moveToPoint(-50.5, -8.5, 2200, {.maxSpeed = 65}); // match load
+    chassis.moveToPoint(-50.5, 2, 1500, {.forwards = false, .maxSpeed = 60, .minSpeed = 24});
+    //pros::delay(800);
+    chassis.turnToHeading(-210, 400, {.minSpeed = 37});
+    //pros::delay(500);
+    intake_motors.move(0);
+    chassis.moveToPoint(-58, 9, 1400, {.forwards = false});
+    //pros::delay(500);
+    chassis.turnToHeading(-180, 1000);
+    loaderPiston.set_value(false);
+    //pros::delay(500);
+    chassis.moveToPoint(-56, 78, 5000, {.forwards = false, .maxSpeed = 90}); //changed x from 58 to 56
+    //pros::delay(2000);
+
+    chassis.turnToHeading(-90, 1000);
+    //pros::delay(500);
+    chassis.moveToPoint(-35, 89, 2800, {.forwards = false});
+    //pros::delay(2000);
+    chassis.turnToHeading(0, 1000);
+
+    pros::delay(500);
+
+    chassis.moveToPoint(-25, 63, 2000, {.forwards = false, .maxSpeed = 90}); //scoring long goal
+    pros::delay(500);   
+    
+    wingPiston.set_value(false); // open wings
+    intake_motors.move(127);
+    loaderPiston.set_value(true);
+    pros::delay(2600);
+    chassis.setPose(0, 0, 0);
+    pros::delay(100); // let odometry stabilize after pose reset
+    wingPiston.set_value(true); // close wings
+    chassis.moveToPoint(0, 29, 2800, {.maxSpeed = 45, .minSpeed = 20});
+    pros::delay(2000);
+    chassis.moveToPoint(0,-2,3000, {.forwards = false, .maxSpeed = 81});
+    pros::delay(200);
+    
+    pros::delay(700);
+    wingPiston.set_value(false); // open wings
+    pros::delay(3000);
+    loaderPiston.set_value(false);
+    chassis.setPose(0, 0, 0);
+    pros::delay(100);
+    chassis.moveToPoint(0, 10, 7000, {.maxSpeed = 60});
+    pros::delay(700);
+    chassis.turnToHeading(40, 500);
+    pros::delay(500);
+    chassis.moveToPoint(13.0, 20.1, 1000);
+    pros::delay(500);
+    intakePiston.set_value(true); //repeated but placed there to make sure it happens
+    wingPiston.set_value(true);
+    chassis.swingToHeading(90, lemlib::DriveSide::LEFT, 1200);
+    //chassis.turnToHeading(90, 800);
+    //pros::delay(500);
+    intake_motors.move(127);
+    pros::delay(300);
+    chassis.moveToPoint(70, 22.6, 3000, {.maxSpeed = 70});
+    pros::delay(2000);
+    loaderPiston.set_value(true);
+    pros::delay(800);
+    loaderPiston.set_value(false);
+    pros::delay(200);
+    chassis.turnToHeading(0, 800);
+    pros::delay(500);
+    chassis.moveToPoint(70, -4.5, 2000, {.forwards = false, .maxSpeed = 70}); //changed x from 85.3 to 80
+    pros::delay(500);
+    chassis.turnToHeading(42, 800);
+    intake_motors.move(90);
+    pros::delay(500);
+    chassis.moveToPoint(50.5, -20.5, 1600, {.forwards = false, .maxSpeed = 60});
+    pros::delay(1500);
+    intakePiston.set_value(false);
+    
+    pros::delay(900);
+
+
+    //random stuff
+    chassis.setPose(-13.5, 39, -132);
+    pros::delay(200);
+    intakePiston.set_value(false);
+    intake_motors.move(127);
+    pros::delay(300);
+    chassis.moveToPoint(-46, 9, 1400, {.maxSpeed = 90});
+    pros::delay(700);
+    chassis.turnToHeading(180, 1000);
+    pros::delay(300);
+    intakePiston.set_value(true);
+    loaderPiston.set_value(true);
+    chassis.moveToPoint(-49.5, -11.5, 2800, {.maxSpeed = 70}); // match load
+    pros::delay(2000);
+    chassis.moveToPoint(-50.5, 2, 1500, {.forwards = false, .maxSpeed = 40, .minSpeed = 24});
+    pros::delay(800);
+    chassis.turnToHeading(-210, 400, {.minSpeed = 37});
+    pros::delay(500);
+    intake_motors.move(0);
+    chassis.moveToPoint(-56, 8, 1400, {.forwards = false});
+    pros::delay(500);
+    chassis.turnToHeading(-180, 1000);
+    loaderPiston.set_value(false);
+    pros::delay(500);
+    chassis.moveToPoint(-56, 78, 5000, {.forwards = false, .maxSpeed = 90});
+    pros::delay(2000);
+    chassis.turnToHeading(-90, 1000);
+    pros::delay(500);
+    chassis.moveToPoint(-35, 88, 3000, {.forwards = false});
+    pros::delay(2000);
+    chassis.turnToHeading(-2, 1000);
+
+    pros::delay(500);
+    chassis.moveToPoint(-23.7, 60, 2000, {.forwards = false});
+    pros::delay(2000);   
+    
+    wingPiston.set_value(false); // open wings
+    intake_motors.move(127);
+    loaderPiston.set_value(true);
+    pros::delay(2600);
+    pros::delay(100);
+    chassis.setPose(0, 0, 0);
+    pros::delay(100); // let odometry stabilize after pose reset
+    wingPiston.set_value(true); // close wings
+    chassis.moveToPoint(-0.4, 28, 4200, {.maxSpeed = 45, .minSpeed = 20});
+    pros::delay(4000);
+    chassis.moveToPoint(0,-3,3000, {.forwards = false, .maxSpeed = 81});
+    pros::delay(700);
+    wingPiston.set_value(false); // open wings
+    pros::delay(3000);
+    loaderPiston.set_value(false);
+
+
+
+}
+
+
+

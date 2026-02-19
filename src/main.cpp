@@ -32,6 +32,8 @@ void initialize() {
             pros::lcd::print(1, "Y: %f", chassis.getPose().y); // y
             pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
 			pros::lcd::print(3, "X: %f", chassis.getPose().x); // x
+
+			pros::lcd::print(4, "distance: %d", ultrasonic.get_value()); // ultrasonic distance
             // delay to save resources
             pros::delay(200);
         }
@@ -284,14 +286,14 @@ void autonomous() {
 	// chassis.turnToHeading(90, 5000);
 	// pros::delay(500);
 	// return;
-
+/*
 	int autonNum = readAuton();
 
    switch(autonNum)
     {
      case 0: 
-      master.print(0,0, "Sawp");
-       sawp_r();
+      master.print(0,0, "Prog Skills");
+	  progskills3();
        break;
 
      case 1: 
@@ -303,11 +305,16 @@ void autonomous() {
       master.print(0,0, "Seven Wing Right");
       seven_wingR();
       break;
-    }
+    }*/
+
+	sawp_r_new();
 	
 
+	//progskills3();
+	//seven_wingR_new();
 
 
+	//chassis.moveToPoint(0, 24, 280000);
    //chassis.moveToPoint(0, 4, 1000);
 
 	
@@ -325,7 +332,9 @@ void opcontrol() {
 
 	bool wingToggled = true;
 	bool loaderToggled = false;
-	bool intakeToggled = false;
+	bool intakeToggled = true;
+	intakePiston.set_value(true);
+	wingPiston.set_value(true);
 	while (true) {
 		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
 		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
@@ -340,6 +349,8 @@ void opcontrol() {
 
 		if(master.get_digital(DIGITAL_R1)) {
 			intake_motors.move(127);
+			wingPiston.set_value(true);
+			intakePiston.set_value(true);
 		} else if(master.get_digital(DIGITAL_R2)) {
 			intake_motors.move(-127);
 		} else {
@@ -363,6 +374,20 @@ void opcontrol() {
 		{
 			intakeToggled = !intakeToggled;
 			intakePiston.set_value(intakeToggled);
+		}
+
+		if(master.get_digital(DIGITAL_L1))
+		{
+			intakePiston.set_value(true);
+			intake_motors.move(127);
+			wingPiston.set_value(false);
+		}
+
+		if(master.get_digital(DIGITAL_L2))
+		{
+			intakePiston.set_value(false);
+			intake_motors.move(127);
+			
 		}
 		
 		pros::delay(20);                              

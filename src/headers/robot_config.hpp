@@ -13,10 +13,14 @@ extern pros::MotorGroup right_motors;
 extern pros::MotorGroup intake_motors;
 extern pros::Motor outtake_motors;
 extern pros::MotorGroup highScoring_motors;
+extern pros::Motor bottom_intake_motor;
+extern pros::Motor top_intake_motor;
 
 extern pros::adi::DigitalOut wingPiston;
 extern pros::adi::DigitalOut loaderPiston;
 extern pros::adi::DigitalOut intakePiston;
+
+extern pros::adi::Ultrasonic ultrasonic;
 
 // Sensors (example: IMU)
 extern pros::Imu imu;
