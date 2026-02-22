@@ -22,7 +22,7 @@ void on_center_button() {
 void initialize() {
     pros::lcd::initialize(); // initialize brain screen
 	wingPiston.set_value(false);
-	
+		chassis.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
     chassis.calibrate(); // calibrate sensors
     // print position to brain screen
     pros::Task screen_task([&]() {
@@ -286,28 +286,28 @@ void autonomous() {
 	// chassis.turnToHeading(90, 5000);
 	// pros::delay(500);
 	// return;
-/*
+
 	int autonNum = readAuton();
 
    switch(autonNum)
     {
      case 0: 
-      master.print(0,0, "Prog Skills");
-	  progskills3();
+      master.print(0,0, "sawp");
+	  sawp_r_new();
        break;
 
      case 1: 
-       master.print(0,0, "Seven Wing Left");
-       seven_wingL();
+       master.print(0,0, "left");
+       seven_wingL_new();
        break;
     
      case 2:
-      master.print(0,0, "Seven Wing Right");
-      seven_wingR();
+      master.print(0,0, "right");
+      seven_wingR_new();
       break;
-    }*/
+    }
 
-	sawp_r_new();
+	//sawp_r_new();
 	
 
 	//progskills3();
@@ -336,6 +336,7 @@ void opcontrol() {
 	intakePiston.set_value(true);
 	wingPiston.set_value(true);
 	while (true) {
+		chassis.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
 		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
 		                 (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);  
@@ -381,12 +382,15 @@ void opcontrol() {
 			intakePiston.set_value(true);
 			intake_motors.move(127);
 			wingPiston.set_value(false);
+			wingToggled = false;
+			intakeToggled = false;
 		}
 
 		if(master.get_digital(DIGITAL_L2))
 		{
 			intakePiston.set_value(false);
 			intake_motors.move(127);
+			intakeToggled = false;
 			
 		}
 		

@@ -387,7 +387,7 @@ void seven_wingR_new()
     intake_motors.move(127);
     pros::delay(500);
     chassis.moveToPose(7.5, 24.5, 25.3, 1200, {.maxSpeed = 80});
-    chassis.waitUntil(14);
+    chassis.waitUntil(17.8);
     //return;
     loaderPiston.set_value(true);
     pros::delay(300);
@@ -419,9 +419,9 @@ void seven_wingR_new()
     chassis.turnToHeading(-135, 400, {.minSpeed = 37});
 
     //return;
-    chassis.moveToPoint(15.6,17.5, 1400, {.forwards=false, .maxSpeed=45, .minSpeed=37});
+    chassis.moveToPoint(16.3,17.5, 1400, {.forwards=false, .maxSpeed=45, .minSpeed=37});
     chassis.turnToHeading(190, 1400);
-    chassis.moveToPoint(12.4, 38.3, 1400, {.forwards = false, .maxSpeed = 40});
+    chassis.moveToPoint(13.6, 38.3, 1400, {.forwards = false, .maxSpeed = 40});
 
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
 
@@ -525,32 +525,36 @@ void seven_wingL_new()
     loaderPiston.set_value(false);
     pros::delay(800);
     intakePiston.set_value(true);
+    
     intake_motors.move(127);
     chassis.moveToPoint(-46.7, 9.37, 1400, {.maxSpeed = 70});
+    loaderPiston.set_value(true);
     //pros::delay(700);
     //return;
     chassis.turnToHeading(180, 1000);
     pros::delay(300);
-    loaderPiston.set_value(true);
-    chassis.moveToPoint(-49.5, -10.5, 900, {.maxSpeed = 65}); // match load
+
+    chassis.moveToPoint(-51, -11.5, 900, {.maxSpeed = 65}); // match load
     //wingPiston.set_value(false);
     pros::delay(100);
     intake_motors.move(127);
 	//dk if this works
-    chassis.moveToPoint(-49, 22, 2800, {.forwards = false, .maxSpeed = 70});
-    pros::delay(800);
+    chassis.moveToPoint(-50, 20, 2800, {.forwards = false, .maxSpeed = 60});
+    //pros::delay(800);
    
    // pros::delay(900);
     loaderPiston.set_value(false);
     wingPiston.set_value(false);
-    pros::delay(800);
-    chassis.moveToPoint(-49.6, 7.7, 1800, {.maxSpeed = 49, .minSpeed = 37});
+    pros::delay(600);
+
+    
+    chassis.moveToPoint(-51.1, 5.35, 1800, {.maxSpeed = 49, .minSpeed = 37});
     wingPiston.set_value(false);
     //return;
     chassis.turnToHeading(-142, 400, {.minSpeed = 37});
-    chassis.moveToPoint(-39.2,24.3, 1400, {.forwards=false, .maxSpeed=45, .minSpeed=37});
-    chassis.turnToHeading(-180, 1400);
-    chassis.moveToPoint(-42.4, 34.3, 1400, {.forwards = false, .maxSpeed = 40});
+    chassis.moveToPoint(-42.5, 21.7, 1400, {.forwards=false, .maxSpeed=45, .minSpeed=37});
+    chassis.turnToHeading(-180, 1000);
+    chassis.moveToPoint(-43.4, 34.3, 1400, {.forwards = false, .maxSpeed = 40});
 
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
 	
@@ -760,13 +764,13 @@ void progskills3()
 
     chassis.turnToHeading(-90, 1000);
     //pros::delay(500);
-    chassis.moveToPoint(-35, 89, 2800, {.forwards = false});
+    chassis.moveToPoint(-35.25, 89, 2800, {.forwards = false});
     //pros::delay(2000);
     chassis.turnToHeading(0, 1000);
 
     pros::delay(500);
 
-    chassis.moveToPoint(-25, 63, 2000, {.forwards = false, .maxSpeed = 90}); //scoring long goal
+    chassis.moveToPoint(-25.25, 63, 2000, {.forwards = false, .maxSpeed = 90}); //scoring long goal
     pros::delay(500);   
     
     wingPiston.set_value(false); // open wings
