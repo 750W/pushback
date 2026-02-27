@@ -14,6 +14,7 @@ void sawp_r_new();
 void progskills1();
 void progskills2();
 void progskills3();
+void progskills_new();
 
 
 

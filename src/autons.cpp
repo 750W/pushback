@@ -3,10 +3,12 @@
 #include "headers/robot_config.hpp"
 #include "pros/motors.h"
 
+float LOAD_SPEED = 24;
+
 /// @brief  Moves the motors a little to keep match loader pressed
 void load_hold() {
-    left_motors.move(19);
-    right_motors.move(19);
+    left_motors.move(LOAD_SPEED);
+    right_motors.move(LOAD_SPEED);
 }
 
 void hold_stop() {
@@ -878,6 +880,83 @@ void progskills3()
 
 
 
+}
+
+void progskills_new() {
+    chassis.setPose(0,0,0);
+	wingPiston.set_value(true);
+    intakePiston.set_value(true);
+    //intake_motors.move(90);
+    bottom_intake_motor.move(127);
+    top_intake_motor.move(90);
+    pros::delay(500);
+    chassis.moveToPose(-7.5, 24.5, -23.3, 1200, {.maxSpeed = 80});
+    chassis.waitUntil(17);
+    //return;
+    loaderPiston.set_value(true);
+    pros::delay(300);
+    chassis.turnToHeading(-136.5, 1000);
+	pros::delay(400);
+	chassis.moveToPoint(-14.1, 39, 3000, {.forwards = false, .maxSpeed = 70}); // mid goal
+    pros::delay(100);
+    //return;
+	pros::delay(800);
+	intakePiston.set_value(false);
+    pros::delay(670);
+    top_intake_motor.move(65);
+    // loaderPiston.set_value(false);
+    pros::delay(800);
+    intakePiston.set_value(true);
+    
+    intake_motors.move(127);
+    chassis.moveToPoint(-46.7, 9.37, 1400, {.maxSpeed = 70});
+    // loaderPiston.set_value(true);
+    //pros::delay(700);
+    //return;
+    chassis.turnToHeading(180, 1000);
+    pros::delay(300);
+
+    chassis.moveToPoint(-51, -11.5, 900, {.maxSpeed = 65, .minSpeed = LOAD_SPEED}); // match load
+    //wingPiston.set_value(false);
+    pros::delay(100);
+    intake_motors.move(127);
+    chassis.waitUntilDone();
+    load_hold();
+    pros::delay(1200);
+    hold_stop();
+	//dk if this works
+    chassis.moveToPoint(-50, 3.5, 2800, {.forwards = false, .maxSpeed = 60, .minSpeed = 30});
+    // chassis.turnToHeading(-217, 800);
+    loaderPiston.set_value(false);
+    intake_motors.move(0);
+    chassis.moveToPoint(-58, 10, 800, {.forwards = false, .minSpeed = 12});
+    // chassis.turnToHeading(180, 700);
+    //x = -58 y=10
+    //pros::delay(800);
+   chassis.moveToPoint(-54, 77, 2000, {.forwards = false, .maxSpeed = 85});
+   chassis.turnToHeading(-90, 800);
+   chassis.waitUntilDone();
+
+   chassis.setPose(get_front_distance(), 0, -90);
+   chassis.moveToPoint(16, 0, 1000, {.forwards = false, .maxSpeed = 60});
+   chassis.turnToHeading(0, 800);
+   // pros::delay(900);
+    // loaderPiston.set_value(false);
+    // wingPiston.set_value(false);
+    // pros::delay(1000);
+
+    
+    // chassis.moveToPoint(-51.1, 5.35, 1800, {.maxSpeed = 49, .minSpeed = 37});
+    // wingPiston.set_value(false);
+    // //return;
+    // chassis.turnToHeading(-142, 400, {.minSpeed = 37});
+    // chassis.moveToPoint(-42.5, 21.7, 1400, {.forwards=false, .maxSpeed=45, .minSpeed=37});
+    // chassis.turnToHeading(-180, 1000);
+    // chassis.moveToPoint(-43.4, 34.3, 1400, {.forwards = false, .maxSpeed = 40});
+
+    chassis.waitUntilDone();
+    chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
+    while (true) { pros::delay(20); }
 }
 
 

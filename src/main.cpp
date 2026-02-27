@@ -33,7 +33,7 @@ void initialize() {
             pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
 			pros::lcd::print(3, "X: %f", chassis.getPose().x); // x
 
-			pros::lcd::print(4, "distance: %d", ultrasonic.get_value()); // ultrasonic distance
+			pros::lcd::print(4, "distance: %f", get_front_distance()); // ultrasonic distance
             // delay to save resources
             pros::delay(200);
         }
@@ -287,25 +287,27 @@ void autonomous() {
 	// pros::delay(500);
 	// return;
 
-	int autonNum = readAuton();
+// 	int autonNum = readAuton();
 
-   switch(autonNum)
-    {
-     case 0: 
-      master.print(0,0, "sawp");
-	  sawp_r_new();
-       break;
+//    switch(autonNum)
+//     {
+//      case 0: 
+//       master.print(0,0, "sawp");
+// 	  sawp_r_new();
+//        break;
 
-     case 1: 
-       master.print(0,0, "left");
-       seven_wingL_new();
-       break;
+//      case 1: 
+//        master.print(0,0, "left");
+//        seven_wingL_new();
+//        break;
     
-     case 2:
-      master.print(0,0, "right");
-      seven_wingR_new();
-      break;
-    }
+//      case 2:
+//       master.print(0,0, "right");
+//       seven_wingR_new();
+//       break;
+//     }
+
+	progskills_new();
 
 	//sawp_r_new();
 	
@@ -328,8 +330,11 @@ int readAuton() {
   return auton;
 }
 
+
 void opcontrol() {
 
+	// progskills_new();
+	// pros::delay(500);
 	bool wingToggled = true;
 	bool loaderToggled = false;
 	bool intakeToggled = true;

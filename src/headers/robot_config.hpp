@@ -2,6 +2,7 @@
 //#include "pros/motors.hpp"
 //#include "pros/imu.hpp"
 #include "lemlib/api.hpp"
+#include "pros/distance.hpp"
 
 // Controller
 extern pros::Controller master;
@@ -20,10 +21,10 @@ extern pros::adi::DigitalOut wingPiston;
 extern pros::adi::DigitalOut loaderPiston;
 extern pros::adi::DigitalOut intakePiston;
 
-extern pros::adi::Ultrasonic ultrasonic;
 
 // Sensors (example: IMU)
 extern pros::Imu imu;
+extern pros::Distance front;
 
 // LemLib chassis
 extern lemlib::Chassis chassis;
@@ -32,3 +33,5 @@ extern lemlib::Chassis chassis;
 extern lemlib::ControllerSettings angularController;
 extern lemlib::ControllerSettings linearController;
 extern lemlib::ControllerSettings swingController;
+
+float get_front_distance();

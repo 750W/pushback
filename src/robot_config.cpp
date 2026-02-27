@@ -24,9 +24,7 @@ pros::adi::DigitalOut intakePiston('A'); //change later
 
 // Sensors (change port!)
 pros::Imu imu(20);
-
-//ultrasonic
-pros::adi::Ultrasonic ultrasonic('C', 'D');
+pros::Distance front(18);
 
 
 // ---- LemLib setup (YOU will fill in correct values) ----
@@ -85,3 +83,10 @@ lemlib::ControllerSettings swingController(2, // proportional gain (kP)
                                                  0, // large error range timeout, in milliseconds
                                                  0 // maximum acceleration (slew)
 );
+
+
+// funcs
+
+float get_front_distance() {
+    return front.get() / 25.4; // mm to inches
+}
