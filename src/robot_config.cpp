@@ -25,6 +25,8 @@ pros::adi::DigitalOut intakePiston('A'); //change later
 // Sensors (change port!)
 pros::Imu imu(20);
 pros::Distance front(18);
+pros::Distance left(16);
+pros::Distance right(17);
 
 
 // ---- LemLib setup (YOU will fill in correct values) ----
@@ -89,4 +91,11 @@ lemlib::ControllerSettings swingController(2, // proportional gain (kP)
 
 float get_front_distance() {
     return front.get() / 25.4; // mm to inches
+}
+
+float get_left_distance() {
+    return left.get() / 25.4; // mm to inches
+}
+float get_right_distance() {
+    return right.get() / 25.4; // mm to inches
 }

@@ -25,6 +25,8 @@ extern pros::adi::DigitalOut intakePiston;
 // Sensors (example: IMU)
 extern pros::Imu imu;
 extern pros::Distance front;
+extern pros::Distance right;
+extern pros::Distance left;
 
 // LemLib chassis
 extern lemlib::Chassis chassis;
@@ -35,3 +37,5 @@ extern lemlib::ControllerSettings linearController;
 extern lemlib::ControllerSettings swingController;
 
 float get_front_distance();
+float get_right_distance();
+float get_left_distance();

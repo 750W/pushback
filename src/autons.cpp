@@ -883,6 +883,7 @@ void progskills3()
 }
 
 void progskills_new() {
+    /*
     chassis.setPose(0,0,0);
 	wingPiston.set_value(true);
     intakePiston.set_value(true);
@@ -897,19 +898,19 @@ void progskills_new() {
     pros::delay(300);
     chassis.turnToHeading(-136.5, 1000);
 	pros::delay(400);
-	chassis.moveToPoint(-14.1, 39, 3000, {.forwards = false, .maxSpeed = 70}); // mid goal
+	chassis.moveToPoint(-14.5, 39.35, 2700, {.forwards = false, .maxSpeed = 70}); // mid goal
     pros::delay(100);
     //return;
+    top_intake_motor.move(65);
 	pros::delay(800);
 	intakePiston.set_value(false);
-    pros::delay(670);
-    top_intake_motor.move(65);
+    pros::delay(920);
+    
     // loaderPiston.set_value(false);
-    pros::delay(800);
     intakePiston.set_value(true);
     
     intake_motors.move(127);
-    chassis.moveToPoint(-46.7, 9.37, 1400, {.maxSpeed = 70});
+    chassis.moveToPoint(-46.2, 9.7, 1400, {.maxSpeed = 70});
     // loaderPiston.set_value(true);
     //pros::delay(700);
     //return;
@@ -925,29 +926,88 @@ void progskills_new() {
     pros::delay(1200);
     hold_stop();
 	//dk if this works
-    chassis.moveToPoint(-50, 3.5, 2800, {.forwards = false, .maxSpeed = 60, .minSpeed = 30});
+    pros::delay(200);
+    chassis.moveToPoint(-50, 3.5, 3200, {.forwards = false, .maxSpeed = 50, .minSpeed = 30});
     // chassis.turnToHeading(-217, 800);
     loaderPiston.set_value(false);
     intake_motors.move(0);
-    chassis.moveToPoint(-58, 10, 800, {.forwards = false, .minSpeed = 12});
+    chassis.moveToPoint(-58, 10, 800, {.forwards = false, .maxSpeed = 87, .minSpeed = 12});
     // chassis.turnToHeading(180, 700);
     //x = -58 y=10
     //pros::delay(800);
-   chassis.moveToPoint(-54, 77, 2000, {.forwards = false, .maxSpeed = 85});
-   chassis.turnToHeading(-90, 800);
+   chassis.moveToPoint(-56, 80, 1500, {.forwards = false, .maxSpeed = 85});
+   chassis.turnToHeading(-90, 800, {.maxSpeed = 60});
    chassis.waitUntilDone();
 
-   chassis.setPose(get_front_distance(), 0, -90);
-   chassis.moveToPoint(16, 0, 1000, {.forwards = false, .maxSpeed = 60});
-   chassis.turnToHeading(0, 800);
+   chassis.setPose(0, -get_front_distance(), 0); // distance from wall to front of robot is like around 9in. Gotta make that shit negative because as distance increases, magnitude should also increase but in negative direction since we are moving that way. 
+   pros::delay(100);
+   chassis.moveToPoint(0, -16.3, 1700, {.forwards = false, .maxSpeed = 60});
+   pros::delay(100);
+   chassis.turnToHeading(90, 800, {.maxSpeed = 65});
    // pros::delay(900);
     // loaderPiston.set_value(false);
     // wingPiston.set_value(false);
     // pros::delay(1000);
 
     
-    // chassis.moveToPoint(-51.1, 5.35, 1800, {.maxSpeed = 49, .minSpeed = 37});
-    // wingPiston.set_value(false);
+    chassis.moveToPoint(-21.0, -27.5, 1800, {.forwards=false, .maxSpeed = 99, .minSpeed = 45});
+    pros::delay(500);
+    wingPiston.set_value(false);
+    loaderPiston.set_value(true);
+
+    intake_motors.move(127);
+    pros::delay(2000);
+    chassis.setPose(0,0,0);
+    chassis.moveToPoint(-1, 29, 2400, {.maxSpeed = 55}); //second match loader
+    pros::delay(500);
+    wingPiston.set_value(true);
+    pros::delay(2000);
+
+    chassis.moveToPoint(0,-4.3, 2100, {.forwards = false, .maxSpeed = 70});
+    pros::delay(1300);
+    wingPiston.set_value(false);
+    loaderPiston.set_value(false);
+    intake_motors.move(127);
+    //pros::delay(200);*/
+    
+    intake_motors.move(127);
+    chassis.setPose(0, 0, 0);
+    pros::delay(1300); // let odometry stabilize after pose reset
+    chassis.moveToPoint(0, 7, 700, {.maxSpeed = 45, .minSpeed = 20});
+    wingPiston.set_value(true);
+    intakePiston.set_value(true);
+    pros::delay(300);
+    chassis.turnToHeading(20, 500);
+    pros::delay(500);
+    chassis.moveToPoint(6, 21, 1000, {.maxSpeed = 80});
+    chassis.moveToPose(24, 22, 90, 2000, {.maxSpeed = 90, .minSpeed = 50});
+
+    
+    //chassis.swingToHeading(88, lemlib::DriveSide::LEFT, 1600, {.maxSpeed = 80})
+    //pros::delay(500);
+    //chassis.setPose(chassis.getPose().x, chassis.getPose().y, 90);
+    chassis.moveToPoint(28.5, 25, 3400, {.maxSpeed =100});  
+    pros::delay(250);  
+    chassis.moveToPoint(65, 25, 3000, {.maxSpeed = 90});
+    chassis.moveToPoint(60, 25, 2000, {.forwards = false, .maxSpeed = 90});
+    chassis.turnToHeading(0, 1100, {.maxSpeed = 80});
+    //chassis.moveToPoint()
+
+    pros::delay(700);
+
+    chassis.setPose(-get_left_distance(), -get_front_distance(), 0); // reset pose to be more accurate for rest of auton. Distance from wall to left of robot is like around 9in. Distance from wall to front of robot is like around 9in. Gotta
+    pros::delay(300);
+
+
+    
+    pros::delay(4000);
+    intake_motors.move(0);
+
+
+    
+    
+
+
     // //return;
     // chassis.turnToHeading(-142, 400, {.minSpeed = 37});
     // chassis.moveToPoint(-42.5, 21.7, 1400, {.forwards=false, .maxSpeed=45, .minSpeed=37});
