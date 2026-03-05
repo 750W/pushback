@@ -33,7 +33,9 @@ void initialize() {
             pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
 			pros::lcd::print(3, "X: %f", chassis.getPose().x); // x
 
-			pros::lcd::print(4, "distance: %f", get_front_distance()); // ultrasonic distance
+			pros::lcd::print(4, "front distance: %f", get_front_distance()); // ultrasonic distance
+			pros::lcd::print(5, "right distance: %f", get_right_distance()); // ultrasonic distance
+			pros::lcd::print(6, "left distance: %f", get_left_distance()); // ultrasonic distance
             // delay to save resources
             pros::delay(200);
         }

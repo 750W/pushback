@@ -29,6 +29,8 @@ extern pros::Distance right;
 extern pros::Distance left;
 
 // LemLib chassis
+extern lemlib::Drivetrain drivetrain;
+extern lemlib::OdomSensors sensors;
 extern lemlib::Chassis chassis;
 
 // PID Controllers
