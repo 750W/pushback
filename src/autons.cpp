@@ -739,7 +739,9 @@ void progskills3()
     chassis.turnToHeading(-132, 1000);
     //pros::delay(400);
     chassis.moveToPoint(-13.5, 39.0, 1950, {.forwards = false, .maxSpeed = 70}); // middle goal
+    
     pros::delay(900);
+
     intakePiston.set_value(false);
     intake_motors.move(96);
     pros::delay(550);
@@ -883,7 +885,7 @@ void progskills3()
 }
 
 void progskills_new() {
-    /*
+    
     chassis.setPose(0,0,0);
 	wingPiston.set_value(true);
     intakePiston.set_value(true);
@@ -900,7 +902,6 @@ void progskills_new() {
 	pros::delay(400);
 	chassis.moveToPoint(-14.5, 39.35, 2700, {.forwards = false, .maxSpeed = 70}); // mid goal
     pros::delay(100);
-    //return;
     top_intake_motor.move(65);
 	pros::delay(800);
 	intakePiston.set_value(false);
@@ -910,14 +911,14 @@ void progskills_new() {
     intakePiston.set_value(true);
     
     intake_motors.move(127);
-    chassis.moveToPoint(-46.2, 9.7, 1400, {.maxSpeed = 70});
+    chassis.moveToPoint(-45.5, 9.3, 1400, {.maxSpeed = 70});
     // loaderPiston.set_value(true);
     //pros::delay(700);
     //return;
     chassis.turnToHeading(180, 1000);
     pros::delay(300);
 
-    chassis.moveToPoint(-51, -11.5, 900, {.maxSpeed = 65, .minSpeed = LOAD_SPEED}); // match load
+    chassis.moveToPoint(-51, -11.5, 900, {.maxSpeed = 75, .minSpeed = LOAD_SPEED}); // match load
     //wingPiston.set_value(false);
     pros::delay(100);
     intake_motors.move(127);
@@ -958,8 +959,8 @@ void progskills_new() {
     intake_motors.move(127);
     pros::delay(2000);
     chassis.setPose(0,0,0);
-    chassis.moveToPoint(-1, 29, 2400, {.maxSpeed = 55}); //second match loader
-    chassis.waitUntilDone();
+    wingPiston.set_value(true);
+    chassis.moveToPoint(-1, 29, 2000, {.maxSpeed = 55}); //second match loader
     load_hold();
     pros::delay(1200);
     hold_stop();
@@ -973,7 +974,7 @@ void progskills_new() {
     wingPiston.set_value(false);
     loaderPiston.set_value(false);
     intake_motors.move(127);
-    //pros::delay(200);*/
+    //pros::delay(200);
     
     intake_motors.move(127);
     chassis.setPose(0, 0, 0);
@@ -988,8 +989,8 @@ void progskills_new() {
     pros::delay(1500);
     // chassis.moveToPose(24, 22, 90, 2000, {.minSpeed = 127});
     // chassis.moveToPose(84, 28, 90, 3500, {.maxSpeed = 90}); // dont change
-    chassis.moveToPose(84, 28, 90, 8000, {.maxSpeed = 92}); // dont change
-    pros::delay(3400);
+    chassis.moveToPose(70, 28, 90, 7000, {.maxSpeed = 92}); // dont change
+    /*pros::delay(3400);
     while (true) {
         if (get_front_distance() < 33 || !chassis.isInMotion()) { // approach until this distance
             chassis.cancelMotion();
@@ -1003,37 +1004,141 @@ void progskills_new() {
     // pros::delay(550);
     // loaderPiston.set_value(false);
     // chassis.waitUntilDone();
+
+    
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
     left_motors.brake();
     right_motors.brake();
-    intake_motors.move(0);
-    pros::delay(200);
-    chassis.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
+    intake_motors.move(0);*/
+    pros::delay(500);
+    //chassis.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
     // lemlib::Chassis chassis(drivetrain, linearController, angularController, sensors);
-    chassis.setPose(0, 0, 0);
+    chassis.turnToHeading(0, 800, {.maxSpeed = 80});
+    pros::delay(300);
+    chassis.moveToPoint(86.2, 34.2, 1000, {.maxSpeed = 55, .minSpeed = 20});
+    pros::delay(1000);
+    chassis.setPose(-get_right_distance(), -get_front_distance(), 0); 
+    
+    pros::delay(400);
+    chassis.moveToPoint(-30, -27.8, 1000, {.forwards=false,.maxSpeed = 65, .minSpeed = 20});
+
+    loaderPiston.set_value(true);
+    pros::delay(500);
+    chassis.turnToHeading(-135, 800, {.maxSpeed = 80});
+    pros::delay(300);
+    chassis.moveToPoint(-58.2, -31.4, 1000, {.maxSpeed = 80});
+    pros::delay(500);
+    chassis.turnToHeading(50, 800, {.maxSpeed = 80});
+    pros::delay(300);
+
+    chassis.moveToPoint(-52.5, -55, 1000, {.forwards=false, .maxSpeed = 80});
+    pros::delay(1000);
+    intakePiston.set_value(false);
+    pros::delay(300);
+    intake_motors.move(65);
+    pros::delay(3000);
+    intakePiston.set_value(true);
+    
+
+
+
+    chassis.setPose(-13.757, 39.630, -129.4);
+    pros::delay(300);
+    intake_motors.move(127);
+
+    chassis.moveToPoint(-44, 8.5, 1400, {.maxSpeed = 70});
+
+    pros::delay(700);
+    chassis.turnToHeading(180, 1000);
+    pros::delay(300);
+    loaderPiston.set_value(true);
+    chassis.moveToPoint(-48, -8.5, 2200, {.maxSpeed = 65}); // match load
+
+    pros::delay(100);
+    intake_motors.move(127);
+    chassis.waitUntilDone();
+    load_hold();
+    pros::delay(1200);
+    hold_stop();
+	//dk if this works
+    pros::delay(200);
+    chassis.moveToPoint(-50, 3.5, 3200, {.forwards = false, .maxSpeed = 50, .minSpeed = 30});
+    // chassis.turnToHeading(-217, 800);
+    loaderPiston.set_value(false);
+    intake_motors.move(0);
+    chassis.moveToPoint(-56, 10, 800, {.forwards = false, .maxSpeed = 87, .minSpeed = 12});
+    // chassis.turnToHeading(180, 700);
+    //x = -58 y=10
+    //pros::delay(800);
+   chassis.moveToPoint(-56, 80, 2700, {.forwards = false, .maxSpeed = 85});
+   chassis.turnToHeading(-90, 800, {.maxSpeed = 60});
+   chassis.waitUntilDone();
+
+   chassis.setPose(0, -get_front_distance(), 0); // distance from wall to front of robot is like around 9in. Gotta make that shit negative because as distance increases, magnitude should also increase but in negative direction since we are moving that way. 
+   pros::delay(100);
+   chassis.moveToPoint(0, -16.3, 1700, {.forwards = false, .maxSpeed = 60});
+   pros::delay(100);
+   chassis.turnToHeading(90, 800, {.maxSpeed = 65});
+   // pros::delay(900);
+    // loaderPiston.set_value(false);
+    // wingPiston.set_value(false);
+    // pros::delay(1000);
 
     
-    chassis.turnToHeading(-90, 800, {.maxSpeed = 80});
-    chassis.waitUntilDone();
-    pros::delay(300);
-    chassis.setPose(0, 0, 0);
-    chassis.moveToPoint(0, -9, 1000, {.forwards = false});
-    chassis.waitUntilDone();
-    pros::delay(100);
+    chassis.moveToPoint(-21.0, -27.5, 1800, {.forwards=false, .maxSpeed = 99, .minSpeed = 45});
+    pros::delay(500);
+    wingPiston.set_value(false);
+    loaderPiston.set_value(true);
 
-    chassis.setPose(get_right_distance(), get_front_distance(), 180); // reset pose to be more accurate for rest of auton. Distance from wall to left of robot is like around 9in. Distance from wall to front of robot is like around 9in. Gotta
-    pros::delay(300);
+    intake_motors.move(127);
+    pros::delay(2000);
+    chassis.setPose(0,0,0);
+    wingPiston.set_value(true);
+    chassis.moveToPoint(-1, 29, 2000, {.maxSpeed = 55}); //second match loader
+    load_hold();
+    pros::delay(1200);
+    hold_stop();
+	//dk if this works
+    pros::delay(200);
+    wingPiston.set_value(true);
+    pros::delay(2000);
 
-    chassis.moveToPose(58, 58, 230, 2000, {.forwards = false});
-	wingPiston.set_value(true);
-    intakePiston.set_value(true);
-    bottom_intake_motor.move(127);
-    top_intake_motor.move(90);
-    chassis.waitUntilDone();
-    pros::delay(150);
-    intakePiston.set_value(false);
-    top_intake_motor.move(65);
-    pros::delay(1100);
+
+
+
+
+
+
+
+
+
+
+
+    // return;
+    // chassis.setPose(0, 0, 0);
+
+    
+    // chassis.turnToHeading(-90, 800, {.maxSpeed = 80});
+    // chassis.waitUntilDone();
+    // pros::delay(300);
+    // chassis.setPose(0, 0, 0);
+    // chassis.moveToPoint(0, -9, 1000, {.forwards = false});
+    // chassis.waitUntilDone();
+    // pros::delay(100);
+
+    // chassis.setPose(get_right_distance(), get_front_distance(), 180); // reset pose to be more accurate for rest of auton. Distance from wall to left of robot is like around 9in. Distance from wall to front of robot is like around 9in. Gotta
+    // pros::delay(300);
+
+    // chassis.moveToPose(58, 58, 230, 2000, {.forwards = false});
+	// wingPiston.set_value(true);
+    // intakePiston.set_value(true);
+    // bottom_intake_motor.move(127);
+    // top_intake_motor.move(90);
+    // chassis.waitUntilDone();
+    // pros::delay(150);
+    // intakePiston.set_value(false);
+    // top_intake_motor.move(65);
+    // pros::delay(1100);
 
     
     // pros::delay(4000);
