@@ -20,6 +20,7 @@ extern pros::Motor top_intake_motor;
 extern pros::adi::DigitalOut wingPiston;
 extern pros::adi::DigitalOut loaderPiston;
 extern pros::adi::DigitalOut intakePiston;
+extern pros::adi::DigitalOut midDescorePiston;
 
 
 // Sensors (example: IMU)

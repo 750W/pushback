@@ -22,7 +22,7 @@ void on_center_button() {
 void initialize() {
     pros::lcd::initialize(); // initialize brain screen
 	wingPiston.set_value(false);
-		chassis.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
+	chassis.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
     chassis.calibrate(); // calibrate sensors
     // print position to brain screen
     pros::Task screen_task([&]() {
@@ -340,6 +340,7 @@ void opcontrol() {
 	bool wingToggled = true;
 	bool loaderToggled = false;
 	bool intakeToggled = true;
+	bool midDescoreToggled = false;
 	intakePiston.set_value(true);
 	wingPiston.set_value(true);
 	while (true) {
@@ -383,6 +384,13 @@ void opcontrol() {
 			intakeToggled = !intakeToggled;
 			intakePiston.set_value(intakeToggled);
 		}
+
+		if (master.get_digital_new_press(DIGITAL_X))
+		{
+			midDescoreToggled = !midDescoreToggled;
+			midDescorePiston.set_value(midDescoreToggled);
+		}
+		
 
 		if(master.get_digital(DIGITAL_L1))
 		{

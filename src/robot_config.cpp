@@ -21,6 +21,7 @@ pros::MotorGroup highScoring_motors({9,10,1});
 pros::adi::DigitalOut wingPiston('E');
 pros::adi::DigitalOut loaderPiston('B'); //change later
 pros::adi::DigitalOut intakePiston('A'); //change later
+pros::adi::DigitalOut midDescorePiston('H'); //change later
 
 // Sensors (change port!)
 pros::Imu imu(20);
