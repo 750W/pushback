@@ -1042,7 +1042,7 @@ void progskills_new() {
 
 
     
-    chassis.moveToPoint(-52.5, -57, 2000, {.forwards=false, .maxSpeed = 80}); //mid goal
+    chassis.moveToPoint(-52.5, -58, 2000, {.forwards=false, .maxSpeed = 80}); //mid goal
     chassis.waitUntilDone();
     //return;
     intakePiston.set_value(false);
@@ -1081,7 +1081,7 @@ void progskills_new() {
     loaderPiston.set_value(false);
     intake_motors.move(0);
     
-    chassis.moveToPoint(-8.7, -34, 3000, {.forwards = false, .maxSpeed = 83, .minSpeed = 12});
+    chassis.moveToPoint(-7.7, -28, 3000, {.forwards = false, .maxSpeed = 83, .minSpeed = 12});
     
     // chassis.turnToHeading(180, 700);
     //x = -58 y=10
