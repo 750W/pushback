@@ -22,7 +22,7 @@ void on_center_button() {
 void initialize() {
     pros::lcd::initialize(); // initialize brain screen
 	wingPiston.set_value(false);
-	
+	chassis.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
     chassis.calibrate(); // calibrate sensors
     // print position to brain screen
     pros::Task screen_task([&]() {
@@ -32,6 +32,10 @@ void initialize() {
             pros::lcd::print(1, "Y: %f", chassis.getPose().y); // y
             pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
 			pros::lcd::print(3, "X: %f", chassis.getPose().x); // x
+
+			pros::lcd::print(4, "front distance: %f", get_front_distance()); // ultrasonic distance
+			pros::lcd::print(5, "right distance: %f", get_right_distance()); // ultrasonic distance
+			pros::lcd::print(6, "left distance: %f", get_left_distance()); // ultrasonic distance
             // delay to save resources
             pros::delay(200);
         }
@@ -285,29 +289,36 @@ void autonomous() {
 	// pros::delay(500);
 	// return;
 
-	int autonNum = readAuton();
+// 	int autonNum = readAuton();
 
-   switch(autonNum)
-    {
-     case 0: 
-      master.print(0,0, "Prog Skills");
-       progskills2();
-       break;
+//    switch(autonNum)
+//     {
+//      case 0: 
+//       master.print(0,0, "sawp");
+// 	  sawp_r_new();
+//        break;
 
-     case 1: 
-       master.print(0,0, "Seven Wing Left");
-       seven_wingL();
-       break;
+//      case 1: 
+//        master.print(0,0, "left");
+//        seven_wingL_new();
+//        break;
     
-     case 2:
-      master.print(0,0, "Seven Wing Right");
-      seven_wingR();
-      break;
-    }
+//      case 2:
+//       master.print(0,0, "right");
+//       seven_wingR_new();
+//       break;
+//     }
+
+	progskills_new();
+
+	//sawp_r_new();
 	
 
+	//progskills3();
+	//seven_wingR_new();
 
 
+	//chassis.moveToPoint(0, 24, 280000);
    //chassis.moveToPoint(0, 4, 1000);
 
 	
@@ -321,10 +332,18 @@ int readAuton() {
   return auton;
 }
 
-void opcontrol() {
 
+void opcontrol() {
+	
+
+	// progskills_new();
+	// pros::delay(500);
 	bool wingToggled = true;
 	bool loaderToggled = false;
+	bool intakeToggled = true;
+	bool midDescoreToggled = false;
+	intakePiston.set_value(true);
+	wingPiston.set_value(true);
 	while (true) {
 		chassis.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
@@ -340,26 +359,14 @@ void opcontrol() {
 
 		if(master.get_digital(DIGITAL_R1)) {
 			intake_motors.move(127);
-			if(!master.get_digital(DIGITAL_L1) && !master.get_digital(DIGITAL_L2))
-			outtake_motors.move(40);
-			//if(master.get_digital(DIGITAL_L1)) // changed 01/12/26 -> if both outtake motors are triggered, hood will automatically open
-			//wingPiston.set_value(!wingToggled); 		// *if you dont like this, make it hold instead of toggle*
+			wingPiston.set_value(true);
+			intakePiston.set_value(true);
 		} else if(master.get_digital(DIGITAL_R2)) {
 			intake_motors.move(-127);
-			if(!master.get_digital(DIGITAL_L1) && !master.get_digital(DIGITAL_L2))
-			outtake_motors.move(-40);
 		} else {
 			intake_motors.move(0);
 		}
 
-		if(master.get_digital(DIGITAL_L1)) {
-			outtake_motors.move(127);
-		} else if(master.get_digital(DIGITAL_L2)) {
-			outtake_motors.move(-127);
-		} else {
-			if(!master.get_digital(DIGITAL_R1) && !master.get_digital(DIGITAL_R2))
-			outtake_motors.move(0);
-		}
 
 		if(master.get_digital_new_press(DIGITAL_B))
 		{
@@ -372,6 +379,42 @@ void opcontrol() {
 			loaderToggled = !loaderToggled;
 			loaderPiston.set_value(loaderToggled);
 		}
+
+		if(master.get_digital_new_press(DIGITAL_Y))
+		{
+			intakeToggled = !intakeToggled;
+			intakePiston.set_value(intakeToggled);
+		}
+
+		if (master.get_digital_new_press(DIGITAL_X))
+		{
+			midDescoreToggled = !midDescoreToggled;
+			midDescorePiston.set_value(midDescoreToggled);
+		}
+		
+
+		if(master.get_digital(DIGITAL_L1))
+		{
+			intakePiston.set_value(true);
+			intake_motors.move(127);
+			wingPiston.set_value(false);
+			wingToggled = false;
+			intakeToggled = false;
+		}
+
+		if(master.get_digital(DIGITAL_L2))
+		{
+			intakePiston.set_value(false);
+			intake_motors.move(127);
+			intakeToggled = false;
+			
+		}
+
+		if(master.get_digital(DIGITAL_DOWN))
+		{
+			progskills_new();
+		}
+		
 		pros::delay(20);                              
 	}
 }
