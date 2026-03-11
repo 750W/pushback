@@ -909,7 +909,7 @@ void progskills_new() {
     top_intake_motor.move(60);
 	pros::delay(800);
 	intakePiston.set_value(false);
-    pros::delay(1070);
+    pros::delay(1040);
     top_intake_motor.move(-127);
     pros::delay(100);
     
@@ -959,7 +959,7 @@ void progskills_new() {
     //return;
 
     
-    chassis.moveToPoint(-24, -27.1, 3200, {.forwards=false, .maxSpeed = 75, .minSpeed = 65}); // long goal first time
+    chassis.moveToPoint(-26, -27.1, 3500, {.forwards=false, .maxSpeed = 75, .minSpeed = 65}); // long goal first time
     pros::delay(550);
     wingPiston.set_value(false);
     loaderPiston.set_value(true);
@@ -970,18 +970,15 @@ void progskills_new() {
     pros::delay(2000);
     chassis.setPose(0,0,0);
     wingPiston.set_value(true);
-    chassis.moveToPoint(0, 30, 2800, {.maxSpeed = 50, .minSpeed = 45}); //second match loader
+    chassis.moveToPoint(0, 30, 3800, {.maxSpeed = 50, .minSpeed = 45}); //second match loader
     //return;
-    pros::delay(2200);
+    pros::delay(2600);
     chassis.moveToPoint(0,-4.3, 2900, {.forwards = false, .maxSpeed = 100});
     pros::delay(1100);
     wingPiston.set_value(false);
     loaderPiston.set_value(false);
     intake_motors.move(127);
-    //pros::delay(200);
-    
-     intake_motors.move(127);
-    
+    //pros::delay(200);    
     
     chassis.setPose(0, 0, 0);
     pros::delay(1700); // let odometry stabilize after pose reset
@@ -997,7 +994,7 @@ void progskills_new() {
     chassis.turnToHeading(50, 500);
     // chassis.moveToPose(24, 22, 90, 2000, {.minSpeed = 127});
     // chassis.moveToPose(84, 28, 90, 3500, {.maxSpeed = 90}); // dont change
-    chassis.moveToPose(68.5, 27.7, 90, 7700, {.maxSpeed = 75}); // dont change //changed speed from 80 to 82
+    chassis.moveToPose(69.2, 28.5, 90, 7700, {.maxSpeed = 71}); // dont change //changed speed from 73 to 72
     /*pros::delay(3400);
     while (true) {
         if (get_front_distance() < 33 || !chassis.isInMotion()) { // approach until this distance
@@ -1035,14 +1032,14 @@ void progskills_new() {
     pros::delay(200);
     top_intake_motor.move(57);
     
-    chassis.moveToPoint(-37, -37.5, 1000, {.forwards=false,.maxSpeed = 85}); //changed y from -27.8 to -28.5
+    chassis.moveToPoint(-37, -41.7, 1000, {.forwards=false,.maxSpeed = 85}); //changed y from -27.8 to -28.5
     chassis.waitUntilDone();
 
-    chassis.turnToHeading(50, 800, {.maxSpeed = 60});
+    chassis.turnToHeading(45, 800, {.maxSpeed = 60});
 
 
     
-    chassis.moveToPoint(-52.5, -58, 2000, {.forwards=false, .maxSpeed = 80}); //mid goal
+    chassis.moveToPoint(-52.5, -60.0, 2000, {.forwards=false, .maxSpeed = 80}); //mid goal
     chassis.waitUntilDone();
     //return;
     intakePiston.set_value(false);
@@ -1050,23 +1047,24 @@ void progskills_new() {
     //return;
     float theta = chassis.getPose().theta;
     pros::delay(300);
-    //master.print(1, 0, "Theta: %f", (theta+180));    
-    intake_motors.move(65);
-    pros::delay(2000);
-    intake_motors.move(50);
-    pros::delay(800);
+    //master.print(1, 0, "Theta: %f", (theta+180));
+    bottom_intake_motor.move(100);    
+    top_intake_motor.move(72);
+    pros::delay(1000);
+    top_intake_motor.move(50);
+    pros::delay(1300);
     intakePiston.set_value(true);
     //part after mid goal
 
     //return;
 
     loaderPiston.set_value(true);
-    chassis.moveToPoint(-25.0, -33, 1400, {.maxSpeed = 80});
+    chassis.moveToPoint(-25.0, -35, 1400, {.maxSpeed = 80});
 
     chassis.turnToHeading(0, 1000, {.maxSpeed = 80});
     pros::delay(300);
 
-    chassis.moveToPoint(-21.0, -5, 900, {.maxSpeed = 71, .minSpeed = LOAD_SPEED}); // match load
+    chassis.moveToPoint(-22.0, 4, 900, {.maxSpeed = 65, .minSpeed = LOAD_SPEED}); // match load
     //wingPiston.set_value(false);
     pros::delay(100);
     intake_motors.move(127);
@@ -1076,17 +1074,17 @@ void progskills_new() {
     hold_stop();
 	//dk if this works
     pros::delay(200);
-    chassis.moveToPoint(-21.0, -15, 3200, {.forwards = false, .maxSpeed = 80, .minSpeed = 30});
+    chassis.moveToPoint(-22.0, -8, 3200, {.forwards = false, .maxSpeed = 80, .minSpeed = 30});
     // chassis.turnToHeading(-217, 800);
     loaderPiston.set_value(false);
     intake_motors.move(0);
     
-    chassis.moveToPoint(-7.7, -28, 3000, {.forwards = false, .maxSpeed = 83, .minSpeed = 12});
+    chassis.moveToPoint(-9.8, -28, 3000, {.forwards = false, .maxSpeed = 83, .minSpeed = 12});
     
     // chassis.turnToHeading(180, 700);
     //x = -58 y=10
     //pros::delay(800);
-    chassis.moveToPoint(-7.6, -90, 3000, {.forwards = false, .maxSpeed = 105});
+    chassis.moveToPoint(-6.4, -90, 3000, {.forwards = false, .maxSpeed = 105});
     chassis.turnToHeading(90, 800, {.maxSpeed = 70});
     chassis.waitUntilDone();
     
@@ -1094,7 +1092,7 @@ void progskills_new() {
 
     chassis.setPose(0, -get_front_distance(), 0); // distance from wall to front of robot is like around 9in. Gotta make that shit negative because as distance increases, magnitude should also increase but in negative direction since we are moving that way. 
     //pros::delay(100);
-    chassis.moveToPoint(0, -16.55, 1700, {.forwards = false, .maxSpeed = 70});
+    chassis.moveToPoint(0, -17.87, 1700, {.forwards = false, .maxSpeed = 70});
     //pros::delay(100);
     chassis.turnToHeading(90, 600, {.maxSpeed = 65});
    // pros::delay(900);
@@ -1105,7 +1103,7 @@ void progskills_new() {
     //return;
 
     
-    chassis.moveToPoint(-26, -27.1, 3500, {.forwards=false, .maxSpeed = 75, .minSpeed = 65}); // long goal first time
+    chassis.moveToPoint(-34.5, -27.1, 3500, {.forwards=false, .maxSpeed = 75, .minSpeed = 65}); // long goal first time
     pros::delay(550);
     wingPiston.set_value(false);
     loaderPiston.set_value(true);
@@ -1118,17 +1116,15 @@ void progskills_new() {
     chassis.setPose(0,0,0);
     wingPiston.set_value(true);
     
-    chassis.moveToPoint(0, 30, 3000, {.maxSpeed = 50, .minSpeed = 45}); //second match loader
+    chassis.moveToPoint(0, 27.8, 3500, {.maxSpeed = 50, .minSpeed = 45}); //second match loader
     //return;
-    pros::delay(2400);
+    pros::delay(2700);
     chassis.moveToPoint(0,-4.3, 2900, {.forwards = false, .maxSpeed = 100});
     pros::delay(1100);
     wingPiston.set_value(false);
     loaderPiston.set_value(false);
     intake_motors.move(127);
     //pros::delay(200);
-    
-     intake_motors.move(127);
     
     
     chassis.setPose(0, 0, 0);
@@ -1143,7 +1139,7 @@ void progskills_new() {
     pros::delay(200);
     // chassis.moveToPose(24, 22, 90, 2000, {.minSpeed = 127});
     // chassis.moveToPose(84, 28, 90, 3500, {.maxSpeed = 90}); // dont change
-    chassis.moveToPose(37, 26, 92, 7700, {.maxSpeed = 82}); 
+    chassis.moveToPose(38, 26, 92, 7700, {.maxSpeed = 98}); 
     
 }
 
