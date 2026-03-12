@@ -1022,7 +1022,6 @@ void progskills_new() {
     // lemlib::Chassis chassis(drivetrain, linearController, angularController, sensors);
     chassis.turnToHeading(1, 800, {.maxSpeed = 80});
     chassis.waitUntilDone();
-    chassis.setPose(0,0,0);
     pros::delay(100);
     chassis.moveToPoint(0, 50, 1500, {.maxSpeed = 55, .minSpeed = 20});
     pros::delay(200);
