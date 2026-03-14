@@ -288,30 +288,39 @@ void autonomous() {
 	// chassis.turnToHeading(90, 5000);
 	// pros::delay(500);
 	// return;
+	/*
+ 	int autonNum = readAuton();
 
-// 	int autonNum = readAuton();
+    switch(autonNum)
+     {
+      case 0: 
+       master.print(0,0, "sawp");
+ 	  sawp_r_new();
+        break;
 
-//    switch(autonNum)
-//     {
-//      case 0: 
-//       master.print(0,0, "sawp");
-// 	  sawp_r_new();
-//        break;
-
-//      case 1: 
-//        master.print(0,0, "left");
-//        seven_wingL_new();
-//        break;
+      case 1: 
+        master.print(0,0, "left");
+        seven_wingL_new();
+        break;
     
-//      case 2:
-//       master.print(0,0, "right");
-//       seven_wingR_new();
-//       break;
-//     }
+      case 2:
+      master.print(0,0, "right");
+       seven_wingR_new();
+       break;
+	
+	  case 3:
+	   master.print(0,0, "skills");
+	   progskills_new();
+	   break;
 
-	progskills_new();
+	  case 4:
+	   master.print(0,0, "4 wing");
+	   break;
+     }*/
+
 
 	//sawp_r_new();
+	progskills_new();
 	
 
 	//progskills3();

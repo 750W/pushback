@@ -24,7 +24,7 @@ pros::adi::DigitalOut intakePiston('A'); //change later
 pros::adi::DigitalOut midDescorePiston('H'); //change later
 
 // Sensors (change port!)
-pros::Imu imu(20);
+pros::Imu imu(15);
 pros::Distance front(18);
 pros::Distance left(16);
 pros::Distance right(17);
