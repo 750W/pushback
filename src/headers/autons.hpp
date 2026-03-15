@@ -9,6 +9,7 @@ void seven_wingL_new();
 void auton3();
 void sawp_r();
 void sawp_r_new();
+void fourwing_l();
 
 
 void progskills1();

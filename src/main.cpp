@@ -320,15 +320,15 @@ void autonomous() {
 
 
 	//sawp_r_new();
-	progskills_new();
+	
+	//fourwing_l();
+	//progskills_new();
+	seven_wingL_new();
+
+	//chassis.moveToPoint(0, 5, 1000, {.maxSpeed = 60});
 	
 
-	//progskills3();
 	//seven_wingR_new();
-
-
-	//chassis.moveToPoint(0, 24, 280000);
-   //chassis.moveToPoint(0, 4, 1000);
 
 	
 }
@@ -343,7 +343,7 @@ int readAuton() {
 
 
 void opcontrol() {
-	
+	//progskills_new();
 
 	// progskills_new();
 	// pros::delay(500);
